@@ -113,7 +113,7 @@ public class App {
                             }
                         case 2:
                             //clear();
-                            System.out.println("\nMenu de Pesquisa de Veículos\n\n" +
+                            System.out.println("\n*****Menu de Pesquisa de Veículos*****\n\n" +
                             "1 - Pesquisar Veículo pelo Renavan\n" +
                             "2 - Pesquisar por Marca ou Modelo\n\n"
                             );
@@ -151,8 +151,32 @@ public class App {
                     
                 case 3:
                     //clear();
-                    System.out.println("\n\n*******Gerenciador de Reservas*******");
-                    return true;
+                    System.out.println("\n\n*******Gerenciador de Reservas*******\n\n"+
+                    "1 - Realizar reserva\n" +
+                    "2 - Relatorio da reserva\n" +
+                    "3 - Relatorio consolidado de reservas\n");
+
+                    switch (escolha()) {
+                        case 1:
+                            //clear();
+                            System.out.println("\nRealizar reserva");
+                            return true;
+
+                        case 2:
+                            //clear();
+                            System.out.println("\nRelatorio de reserva");
+                            return true;
+                        
+                        case 3: 
+
+                            System.out.println("\nRelatorio consolidado de reserva");
+                            return true;
+                            
+                        default:
+                            System.out.println("\n\nOpção inválida, retornando ao Menu...");
+                            Thread.sleep(2500); 
+                            return true;
+                    }
     
                 case 4:
                     clear();
