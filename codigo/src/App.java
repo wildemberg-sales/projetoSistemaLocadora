@@ -27,9 +27,9 @@ public class App {
 
     static boolean menu() throws InterruptedException{
         
-        clear();
+        //clear();
         System.out.println(
-            "********** Menu Principal **********\n\n" +
+            "\n\n********** Menu Principal **********\n\n" +
             "1 - Gerenciar Locatários\n" +
             "2 - Gerenciar Frota\n" +
             "3 - Gerenciar Reservas\n" +
@@ -38,9 +38,9 @@ public class App {
     
             switch (escolha()) {
                 case 1:
-                    clear();
+                    //clear();
                     System.out.println(
-                    "Menu de Gerencia de Locatários\n\n" +
+                    "\n\n*******Menu de Gerencia de Locatários********\n\n" +
                     "1 - Cadastrar Locatário\n" +
                     "2 - Buscar Locatário\n" +
                     "3 - Pesquisar Locatário\n" +
@@ -48,32 +48,33 @@ public class App {
                     );
                     switch (escolha()) {
                         case 1:
-                            clear();
-                            System.out.println("Cadastrar Locatário");
+                            //clear();
+                            System.out.println("\nCadastrar Locatário");
                             return true;
 
                         case 2:
-                            clear();
-                            System.out.println("Buscar Locatário");
+                            //clear();
+                            System.out.println("\nBuscar Locatário");
                             return true;
 
                         case 3:
-                            clear();
-                            System.out.println("Pesquisar Locatário");
+                            //clear();
+                            System.out.println("\nPesquisar Locatário");
                             return true;
 
                         case 4:
-                            clear();
-                            System.out.println("Excluir Locatário");
+                            //clear();
+                            System.out.println("\nExcluir Locatário");
                             return true;
                     
                         default:
                             System.out.println("\n\nOpção inválida, retornando ao menu...");
+                            Thread.sleep(2500); 
                             return true;
                     }
                 case 2:
-                    clear();
-                    System.out.println("Menu de gerência de frota\n\n" +
+                    //clear();
+                    System.out.println("\n\n*****Menu de gerência de frota*****\n\n" +
                     "1 - Cadastrar Veículo\n" +
                     "2 - Pesquisar Veículo\n" +
                     "3 - Atualizar dados de um Veículo\n" +
@@ -82,8 +83,8 @@ public class App {
     
                     switch (escolha()) {
                         case 1:
-                            clear();
-                            System.out.println("Menu de Cadastro de Veículos\n\n" +
+                            //clear();
+                            System.out.println("\nMenu de Cadastro de Veículos\n\n" +
                             "1 - Cadastrar Veículo de Passeio\n" +
                             "2 - Cadastrar Veículo Utilitário\n" +
                             "3 - Cadastrar Motocicleta\n\n"
@@ -91,73 +92,77 @@ public class App {
 
                             switch (escolha()) {
                                 case 1:
-                                    clear();
-                                    System.out.println("Cadastrar Veículo de Passeio");
+                                    //clear();
+                                    System.out.println("\nCadastrar Veículo de Passeio");
                                     return true;
 
                                 case 2:
-                                    clear();
-                                    System.out.println("Cadastrar Veículo Utilitário");
+                                    //clear();
+                                    System.out.println("\nCadastrar Veículo Utilitário");
                                     return true;
 
                                 case 3:
-                                    clear();
-                                    System.out.println("Cadastrar Motocicleta");
+                                    //clear();
+                                    System.out.println("\nCadastrar Motocicleta");
                                     return true;
                             
                                 default:
-                                    System.out.println("\n\nOpção inválida, encerrando programa...");
+                                    System.out.println("\n\nOpção inválida, retornando ao Menu...");
+                                    Thread.sleep(2500); 
                                     return true;
                             }
                         case 2:
-                            clear();
-                            System.out.println("Menu de Pesquisa de Veículos\n\n" +
+                            //clear();
+                            System.out.println("\nMenu de Pesquisa de Veículos\n\n" +
                             "1 - Pesquisar Veículo pelo Renavan\n" +
                             "2 - Pesquisar por Marca ou Modelo\n\n"
                             );
                             switch (escolha()) {
                                 case 1:
-                                    clear();
-                                    System.out.println("Pesquisar Veículo pelo Renavan");
+                                    //clear();
+                                    System.out.println("\nPesquisar Veículo pelo Renavan");
                                     return true;
     
                                 case 2:
-                                    clear();
-                                    System.out.println("Pesquisar por Marca ou Modelo");
+                                    //clear();
+                                    System.out.println("\nPesquisar por Marca ou Modelo");
                                     return true;
                             
                                 default:
-                                    System.out.println("\n\nOpção inválida, encerrando programa...");
+                                    System.out.println("\n\nOpção inválida, retornando ao Menu...");
+                                    Thread.sleep(2500); 
                                     return true;
                             }
                         case 3:
-                            clear();
-                            System.out.println("Atualizar dados de um Veículo");
+                            //clear();
+                            System.out.println("\nAtualizar dados de um Veículo");
                             return true;
     
                         case 4:
-                            clear();
-                            System.out.println("Remover Veículo da frota");
+                            //clear();
+                            System.out.println("\nRemover Veículo da frota");
                             return true;
     
                         default:
-                            System.out.println("\n\nOpção inválida, encerrando programa...");
+                            System.out.println("\n\nOpção inválida, retornando ao Menu...");
+                            Thread.sleep(2500); 
                             return true;
                     }
                     
                 case 3:
-                    clear();
-                    System.out.println("Gerenciar Reservas");
+                    //clear();
+                    System.out.println("\n\n*******Gerenciador de Reservas*******");
                     return true;
     
                 case 4:
                     clear();
-                    System.out.println("Sair do Programa");
+                    System.out.println("Saindo do Programa...");
                     Thread.sleep(2500); 
                     return false;
             
                 default:
-                    System.out.println("\n\nOpção inválida, encerrando programa...");
+                    System.out.println("\n\nOpção inválida!! Retornando ao Menu...");
+                    Thread.sleep(2500); 
                     return true;
             }
         }
