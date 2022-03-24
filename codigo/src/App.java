@@ -171,7 +171,7 @@ public class App {
 
                             System.out.println("\nRelatorio consolidado de reserva");
                             return true;
-                            
+
                         default:
                             System.out.println("\n\nOpção inválida, retornando ao Menu...");
                             Thread.sleep(2500); 
