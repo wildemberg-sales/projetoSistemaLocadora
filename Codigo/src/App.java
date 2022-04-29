@@ -1,8 +1,13 @@
-import java.util.Scanner;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import GerenciadorLocatarios.Locatario;
+import GerenciadorLocatarios.PessoaJuridica;
 
 public class App {
 public static void main(String[] args) throws Exception {
-    
+
     boolean voltaMenu = true;
     
     do {
@@ -10,60 +15,57 @@ public static void main(String[] args) throws Exception {
     } while (voltaMenu);    
 }
 
-static int escolha(){
-    int opcao;
-
-    System.out.println("Selecione a opção que deseja");
-    Scanner sc = new Scanner(System.in);
-    opcao = sc.nextInt();
-    return opcao;
-}
-
-static void clear(){
-    for (int i = 0; i < 20; i++) {
-        System.out.println("\n");
-    }
-}
-
 static boolean menu() throws InterruptedException{
+    int escolha, confirma;
+    String str;
+    List<Locatario> locatarios;
     
-    //clear();
-    System.out.println(
-        "\n\n********** Menu Principal **********\n\n" +
+    str = "\n\n********** Menu Principal **********\n\n" +
         "1 - Gerenciar Locatários\n" +
         "2 - Gerenciar Frota\n" +
         "3 - Gerenciar Reservas\n" +
-        "4 - Sair do Programa\n\n"
-        );    
+        "4 - Sair do Programa\n\n"; 
 
-        switch (escolha()) {
+    escolha = Integer.parseInt(JOptionPane.showInputDialog(null, str));
+        switch (escolha) {
             case 1:
-                //clear();
-                System.out.println(
-                "\n\n*******Menu de Gerencia de Locatários********\n\n" +
-                "1 - Cadastrar Locatário\n" +
-                "2 - Buscar Locatário\n" +
-                "3 - Pesquisar Locatário\n" +
-                "4 - Excluir Locatário\n\n"
-                );
-                switch (escolha()) {
+        
+                str ="\n\n********** Menu de Gerencia de Locatários **********\n\n" +
+                    "1 - Cadastrar Locatário\n" +
+                    "2 - Buscar Locatário\n" +
+                    "3 - Excluir Locatário\n\n";
+                
+                escolha = Integer.parseInt(JOptionPane.showInputDialog(null, str));
+
+                switch (escolha) {
                     case 1:
-                        //clear();
-                        System.out.println("\nCadastrar Locatário");
+                        confirma = JOptionPane.showConfirmDialog(null, "O locatário é um CNPJ?", "Cadastro Locatário", JOptionPane.YES_NO_OPTION);
+                        
+                        if(confirma == JOptionPane.YES_OPTION){
+                            String end = JOptionPane.showInputDialog(null, "Informe o endereço");
+                            String bai = JOptionPane.showInputDialog(null, "Informe o bairro");
+                            String cid = JOptionPane.showInputDialog(null, "Informe a cidade");
+                            String est = JOptionPane.showInputDialog(null, "Informe o estado");
+                            String cep = JOptionPane.showInputDialog(null, "Informe o cep");
+                            String eml = JOptionPane.showInputDialog(null, "Informe o email");
+                            int ddd = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o ddd"));
+                            int tel = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o número de telefone"));
+                            String nomeSocial = JOptionPane.showInputDialog(null, "Informe o Nome Social");
+                            String cnpj = JOptionPane.showInputDialog(null, "Informe o CNPJ");
+                            
+                        } else {
+
+                        }
+
                         return true;
 
                     case 2:
-                        //clear();
+                
                         System.out.println("\nBuscar Locatário");
                         return true;
 
                     case 3:
-                        //clear();
-                        System.out.println("\nPesquisar Locatário");
-                        return true;
-
-                    case 4:
-                        //clear();
+                
                         System.out.println("\nExcluir Locatário");
                         return true;
                 
@@ -73,7 +75,7 @@ static boolean menu() throws InterruptedException{
                         return true;
                 }
             case 2:
-                //clear();
+        
                 System.out.println("\n\n*****Menu de gerência de frota*****\n\n" +
                 "1 - Cadastrar Veículo\n" +
                 "2 - Pesquisar Veículo\n" +
@@ -81,28 +83,28 @@ static boolean menu() throws InterruptedException{
                 "4 - Remover Veículo da frota\n\n"
                 );
 
-                switch (escolha()) {
+                switch (escolha) {
                     case 1:
-                        //clear();
+                
                         System.out.println("\nMenu de Cadastro de Veículos\n\n" +
                         "1 - Cadastrar Veículo de Passeio\n" +
                         "2 - Cadastrar Veículo Utilitário\n" +
                         "3 - Cadastrar Motocicleta\n\n"
                         );
 
-                        switch (escolha()) {
+                        switch (escolha) {
                             case 1:
-                                //clear();
+                        
                                 System.out.println("\nCadastrar Veículo de Passeio");
                                 return true;
 
                             case 2:
-                                //clear();
+                        
                                 System.out.println("\nCadastrar Veículo Utilitário");
                                 return true;
 
                             case 3:
-                                //clear();
+                        
                                 System.out.println("\nCadastrar Motocicleta");
                                 return true;
                         
@@ -112,19 +114,19 @@ static boolean menu() throws InterruptedException{
                                 return true;
                         }
                     case 2:
-                        //clear();
+                
                         System.out.println("\n*****Menu de Pesquisa de Veículos*****\n\n" +
                         "1 - Pesquisar Veículo pelo Renavan\n" +
                         "2 - Pesquisar por Marca ou Modelo\n\n"
                         );
-                        switch (escolha()) {
+                        switch (escolha) {
                             case 1:
-                                //clear();
+                        
                                 System.out.println("\nPesquisar Veículo pelo Renavan");
                                 return true;
 
                             case 2:
-                                //clear();
+                        
                                 System.out.println("\nPesquisar por Marca ou Modelo");
                                 return true;
                         
@@ -134,12 +136,12 @@ static boolean menu() throws InterruptedException{
                                 return true;
                         }
                     case 3:
-                        //clear();
+                
                         System.out.println("\nAtualizar dados de um Veículo");
                         return true;
 
                     case 4:
-                        //clear();
+                
                         System.out.println("\nRemover Veículo da frota");
                         return true;
 
@@ -150,20 +152,20 @@ static boolean menu() throws InterruptedException{
                 }
                 
             case 3:
-                //clear();
+        
                 System.out.println("\n\n*******Gerenciador de Reservas*******\n\n"+
                 "1 - Realizar reserva\n" +
                 "2 - Relatorio da reserva\n" +
                 "3 - Relatorio consolidado de reservas\n");
 
-                switch (escolha()) {
+                switch (escolha) {
                     case 1:
-                        //clear();
+                
                         System.out.println("\nRealizar reserva");
                         return true;
 
                     case 2:
-                        //clear();
+                
                         System.out.println("\nRelatorio de reserva");
                         return true;
                     
@@ -179,7 +181,7 @@ static boolean menu() throws InterruptedException{
                 }
 
             case 4:
-                clear();
+        
                 System.out.println("Saindo do Programa...");
                 Thread.sleep(2500); 
                 return false;
@@ -190,4 +192,5 @@ static boolean menu() throws InterruptedException{
                 return true;
         }
     }
+
 }
