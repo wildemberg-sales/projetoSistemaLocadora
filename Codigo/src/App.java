@@ -1,8 +1,9 @@
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import GerenciadorLocatarios.Locatario;
+
+
 import GerenciadorLocatarios.PessoaJuridica;
 
 public class App {
@@ -18,7 +19,8 @@ public static void main(String[] args) throws Exception {
 static boolean menu() throws InterruptedException{
     int escolha, confirma;
     String str;
-    List<Locatario> locatarios;
+    ArrayList<PessoaFisica> pessoaFisica = new ArrayList<>();
+   ArrayList<PessoaJuridica> pessoaJuridica = new ArrayList<>();
     
     str = "\n\n********** Menu Principal **********\n\n" +
         "1 - Gerenciar Locatários\n" +
@@ -42,6 +44,8 @@ static boolean menu() throws InterruptedException{
                         confirma = JOptionPane.showConfirmDialog(null, "O locatário é um CNPJ?", "Cadastro Locatário", JOptionPane.YES_NO_OPTION);
                         
                         if(confirma == JOptionPane.YES_OPTION){
+                            String nomeSocial = JOptionPane.showInputDialog(null, "Informe o Nome Social");
+                            String cnpj = JOptionPane.showInputDialog(null, "Informe o CNPJ");
                             String end = JOptionPane.showInputDialog(null, "Informe o endereço");
                             String bai = JOptionPane.showInputDialog(null, "Informe o bairro");
                             String cid = JOptionPane.showInputDialog(null, "Informe a cidade");
@@ -50,10 +54,24 @@ static boolean menu() throws InterruptedException{
                             String eml = JOptionPane.showInputDialog(null, "Informe o email");
                             int ddd = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o ddd"));
                             int tel = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o número de telefone"));
-                            String nomeSocial = JOptionPane.showInputDialog(null, "Informe o Nome Social");
-                            String cnpj = JOptionPane.showInputDialog(null, "Informe o CNPJ");
+                            
+                           
                             
                         } else {
+                            String nome = JOptionPane.showInputDialog(null, "Informe o nome");
+                            String cpf = JOptionPane.showInputDialog(null, "Informe o CPF");
+                            String estadoCivil = JOptionPane.showInputDialog(null, "Informe o estado civil");
+                            String end = JOptionPane.showInputDialog(null, "Informe o endereço");
+                            String bai = JOptionPane.showInputDialog(null, "Informe o bairro");
+                            String cid = JOptionPane.showInputDialog(null, "Informe a cidade");
+                            String est = JOptionPane.showInputDialog(null, "Informe o estado");
+                            String cep = JOptionPane.showInputDialog(null, "Informe o cep");
+                            String eml = JOptionPane.showInputDialog(null, "Informe o email");
+                            int ddd = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o ddd"));
+                            int tel = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o número de telefone"));
+
+                            PessoaFisica a = new PessoaFisica(end, bai, cid, est, cep, eml, ddd, tel, nome, cpf, estadoCivil);
+                            pessoaFisica.add(a);
 
                         }
 
