@@ -3,7 +3,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import GerenciadorLocatarios.Locatario;
 import GerenciadorLocatarios.PessoaFisica;
 import GerenciadorLocatarios.PessoaJuridica;
 
@@ -57,7 +56,7 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                             }
                         } else {
                             
-                            confirma = JOptionPane.showConfirmDialog(null, "O CPF está vinculado à um CNPJ?", "Cadastro Locatário", JOptionPane.YES_NO_OPTION);
+                            confirma = JOptionPane.showConfirmDialog(null, "O CPF está vinculado a um CNPJ?", "Cadastro Locatário", JOptionPane.YES_NO_OPTION);
                             
                             if(confirma == JOptionPane.YES_OPTION){
                                 
@@ -85,28 +84,28 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                         String busca;
                         String resultado = "Locatários encontrados:\n";
 
-                        Locatario listaDeBuscaCPF[];
-                        Locatario listaDeBuscaCNPJ[];
-                        listaDeBuscaCPF = new Locatario[50];
-                        listaDeBuscaCNPJ = new Locatario[50];
+                        PessoaFisica listaDeBuscaCPF[];
+                        PessoaJuridica listaDeBuscaCNPJ[];
+                        listaDeBuscaCPF = new PessoaFisica[50];
+                        listaDeBuscaCNPJ = new PessoaJuridica[50];
                         int i = 0;
                         
                         if(tipoBusca == JOptionPane.YES_OPTION){
                             busca = JOptionPane.showInputDialog(null, "Digite o nome, email ou cpf do locatário a ser buscado");
                             for (PessoaFisica t: pessoaCPF){
-                                if(t.getNome() == busca || t.getEmail() == busca || t.getCpf() == busca){
+                                if(t.getNome().toLowerCase().contains(busca.toLowerCase()) || t.getEmail().toLowerCase().contains(busca.toLowerCase()) || t.getCpf().toLowerCase().contains(busca.toLowerCase())){
                                     listaDeBuscaCPF[i] = t;
                                     i++;
-                                    resultado += i + " - " + t.getNome() + "\n    " + t.getCpf() + "\n    " + t.getEmail();
+                                    resultado += i + " - " + t.getNome() + "\n";
                                 }
                             }
                         } else {
                             busca = JOptionPane.showInputDialog(null, "Digite o nome social, email ou cnpj do locatário a ser buscado");
                             for (PessoaJuridica t: pessoaCNPJ){
-                                if(t.getNomeSocial() == busca || t.getEmail() == busca || t.getCnpj() == busca){
+                                if(t.getNomeSocial().toLowerCase().contains(busca.toLowerCase()) || t.getEmail().toLowerCase().contains(busca.toLowerCase()) || t.getCnpj().toLowerCase().contains(busca.toLowerCase())){
                                     listaDeBuscaCNPJ[i] = t;
                                     i++;
-                                    resultado += i + " - " + t.getNomeSocial() + "\n    " + t.getCnpj() + "\n    " + t.getEmail();
+                                    resultado += i + " - " + t.getNomeSocial() + "\n";
                                 }
                             }
                         }
