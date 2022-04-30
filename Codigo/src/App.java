@@ -3,6 +3,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import GerenciadorLocatarios.Locatario;
 import GerenciadorLocatarios.PessoaFisica;
 import GerenciadorLocatarios.PessoaJuridica;
 
@@ -33,7 +34,7 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
         switch (escolha) {
             case 1:
         
-                str ="Menu de Gerencia de Locatários\n\n" +
+                str = "Menu de Gerencia de Locatários\n\n" +
                     "1 - Cadastrar Locatário\n" +
                     "2 - Buscar Locatário\n" +
                     "3 - Excluir Locatário\n\n" +
@@ -43,7 +44,7 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
 
                 switch (escolha) {
                     case 1:
-                    
+                        //Cadastrar Locatário
                         confirma = JOptionPane.showConfirmDialog(null, "O locatário é um CNPJ?", "Cadastro Locatário", JOptionPane.YES_NO_OPTION);
                         
                         if(confirma == JOptionPane.YES_OPTION){                           
@@ -79,6 +80,43 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
 
                     case 2:
                         //Buscar Locatário
+                        int tipoBusca = JOptionPane.showConfirmDialog(null, "Deseja buscar CPF?", "Busca Locatário", JOptionPane.YES_NO_OPTION);
+
+                        String busca;
+                        String resultado = "Locatários encontrados:\n";
+
+                        Locatario listaDeBuscaCPF[];
+                        Locatario listaDeBuscaCNPJ[];
+                        listaDeBuscaCPF = new Locatario[50];
+                        listaDeBuscaCNPJ = new Locatario[50];
+                        int i = 0;
+                        
+                        if(tipoBusca == JOptionPane.YES_OPTION){
+                            busca = JOptionPane.showInputDialog(null, "Digite o nome, email ou cpf do locatário a ser buscado");
+                            for (PessoaFisica t: pessoaCPF){
+                                if(t.getNome() == busca || t.getEmail() == busca || t.getCpf() == busca){
+                                    listaDeBuscaCPF[i] = t;
+                                    i++;
+                                    resultado += i + " - " + t.getNome() + "\n    " + t.getCpf() + "\n    " + t.getEmail();
+                                }
+                            }
+                        } else {
+                            busca = JOptionPane.showInputDialog(null, "Digite o nome social, email ou cnpj do locatário a ser buscado");
+                            for (PessoaJuridica t: pessoaCNPJ){
+                                if(t.getNomeSocial() == busca || t.getEmail() == busca || t.getCnpj() == busca){
+                                    listaDeBuscaCNPJ[i] = t;
+                                    i++;
+                                    resultado += i + " - " + t.getNomeSocial() + "\n    " + t.getCnpj() + "\n    " + t.getEmail();
+                                }
+                            }
+                        }
+
+                        JOptionPane.showMessageDialog(null, resultado);
+                    
+
+                        for (int j = 0; j == i ; j++) {
+                            
+                        }
                         return true;
 
                     case 3:
@@ -236,6 +274,7 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
         int tel = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o número de telefone"));
 
         PessoaJuridica nvCNPJ = new PessoaJuridica(end, bai, cid, est, cep, eml, ddd, tel, nomeSocial, cnpj);
+        JOptionPane.showMessageDialog(null, "É necessário cadastrar um funcionário para efetuar o aluguel");
         PessoaFisica func = cadastroCPF(pessoaCPF);
         nvCNPJ.cadastrarFuncionario(func);
 
