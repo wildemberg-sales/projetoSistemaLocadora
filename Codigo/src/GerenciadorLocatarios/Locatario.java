@@ -7,12 +7,12 @@ public class Locatario {
                      cidade,
                      estado,
                      cep,
-                     email;
-
-    protected int dddCelular, numeroCelular;
+                     email,
+                     numeroCelular,
+                     dddCelular;
 
     public Locatario(String endereco, String bairro, String cidade, String estado, String cep, String email,
-            int dddCelular, int numeroCelular) {
+            String dddCelular, String numeroCelular) {
         this.endereco = endereco;
         this.bairro = bairro;
         this.cidade = cidade;
@@ -71,19 +71,19 @@ public class Locatario {
         this.email = email;
     }
 
-    public int getDddCelular() {
+    public String getDddCelular() {
         return dddCelular;
     }
 
-    public void setDddCelular(int dddCelular) {
+    public void setDddCelular(String dddCelular) {
         this.dddCelular = dddCelular;
     }
 
-    public int getNumeroCelular() {
+    public String getNumeroCelular() {
         return numeroCelular;
     }
 
-    public void setNumeroCelular(int numeroCelular) {
+    public void setNumeroCelular(String numeroCelular) {
         this.numeroCelular = numeroCelular;
     }
 

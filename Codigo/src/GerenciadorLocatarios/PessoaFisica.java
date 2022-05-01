@@ -4,7 +4,7 @@ public class PessoaFisica extends Locatario{
     protected String nome, cpf, estadoCivil;
 
     public PessoaFisica(String endereco, String bairro, String cidade, String estado, String cep, String email,
-            int dddCelular, int numeroCelular, String nome, String cpf, String estadoCivil) {
+            String dddCelular, String numeroCelular, String nome, String cpf, String estadoCivil) {
         super(endereco, bairro, cidade, estado, cep, email, dddCelular, numeroCelular);
         this.nome = nome;
         this.cpf = cpf;

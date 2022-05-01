@@ -10,7 +10,7 @@ public class PessoaJuridica extends Locatario {
     protected List<PessoaFisica> funcionarios;
 
     public PessoaJuridica(String endereco, String bairro, String cidade, String estado, String cep, String email,
-            int dddCelular, int numeroCelular, String nomeSocial, String cnpj) {
+            String dddCelular, String numeroCelular, String nomeSocial, String cnpj) {
         super(endereco, bairro, cidade, estado, cep, email, dddCelular, numeroCelular);
         this.nomeSocial = nomeSocial;
         this.cnpj = cnpj;
