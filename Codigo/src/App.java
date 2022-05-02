@@ -231,6 +231,8 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                 
                                 VeiculoPasseio novoVeicPasseio = new VeiculoPasseio(marca, modelo, renavam, categoria, arCondicionado, direcaoHidraulica, cambioAutomatico);
                                 veicPasseio.add(novoVeicPasseio);
+
+                                JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
                                 return true;
 
                             case 2:
@@ -250,8 +252,11 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                     int taraVeiculo = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual a tara do veiculo"));
                                     int tamanhoCompartimento = Integer.parseInt(JOptionPane.showInputDialog(null, "qual o tamanho do compartimento em metros"));
                                     String tipoCompartimento = JOptionPane.showInputDialog(null, "Qual o tipo de compartimento");
+                                    
                                     VeiculoUtilitarioCarga newVeicCarga = new VeiculoUtilitarioCarga(marca, modelo, renavam, capacidadeCarga, taraVeiculo, tamanhoCompartimento, tipoCompartimento);
                                     veicCarga.add(newVeicCarga);
+
+                                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
                                     return true;
 
                                     case 2:
@@ -283,10 +288,14 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                    }
                                     VeiculoUtilitarioPassageiro newVeicPassageiro = new VeiculoUtilitarioPassageiro(marca, modelo, renavam, capacidadeCarga, arCondicionado, direcaoHidraulica, tv);
                                     veicPassageiro.add(newVeicPassageiro);
+
+                                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                                    return true;
+
+                                    default:
+                                    JOptionPane.showMessageDialog(null, "Opção Inválida, Pressione OK para voltar ao menu"); 
                                     return true;
                                 }
-
-                                return true;
 
                             case 3:
                                 //Cadastro Motocicleta
@@ -322,6 +331,8 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
 
                                 Motocicleta newMoto = new Motocicleta(marca, modelo, renavam, controleTracao, freiosABS, pilotoAutomatico, modoPilotagem);
                                 motos.add(newMoto);
+
+                                JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
                                 return true;
                         
                             default:
