@@ -14,10 +14,6 @@ public class Motocicleta extends Veiculo {
         this.pilotoAutomatico = pilotoAutomatico;
         this. modoPilotagem = modoPilotagem;
     }
-    
-    public Motocicleta(){
-
-    }
 
     public boolean getControleTracao() {
         return controleTracao;
