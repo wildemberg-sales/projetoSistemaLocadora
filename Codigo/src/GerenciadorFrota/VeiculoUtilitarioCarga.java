@@ -6,17 +6,13 @@ public class VeiculoUtilitarioCarga extends Veiculo {
 
     protected String tipoCompartimento;
 
-    public VeiculoUtilitarioCarga(String marca, String modelo, String renavam,
+    public VeiculoUtilitarioCarga(String marca, String modelo, String renavam,  String cor, int anoFabricacao, int anoModelo, int capacidadeTanque, float valorDiariaCPF, float valorDiariaCNPJ,
      int capacidadeCarga, int taraVeiculo, int tamanhoCompartimento, String tipoCompartimento){
-        super(marca, modelo, renavam);
+        super(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ);
         this.capacidadeCarga = capacidadeCarga;
         this.taraVeiculo = taraVeiculo;
         this.tamanhoCompartimento = tamanhoCompartimento;
         this.tipoCompartimento = tipoCompartimento;
-    }
-    
-    public VeiculoUtilitarioCarga(){
-
     }
 
     public int getCapacidadeCarga() {

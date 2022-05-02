@@ -6,19 +6,15 @@ public class VeiculoUtilitarioPassageiro extends Veiculo{
 
     protected boolean arCondicionado, direcaoHidraulica, tv;
 
-    public VeiculoUtilitarioPassageiro(String marca, String modelo, String renavam,
+    public VeiculoUtilitarioPassageiro(String marca, String modelo, String renavam,  String cor, int anoFabricacao, int anoModelo, int capacidadeTanque, float valorDiariaCPF, float valorDiariaCNPJ,
      int capacidadeCarga, boolean arCondicionado, boolean direcaoHidraulica, boolean tv){
-        super(marca, modelo, renavam);
+        super(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ);
         this. capacidadeCarga = capacidadeCarga;
         this.arCondicionado = arCondicionado;
         this.direcaoHidraulica = direcaoHidraulica;
         this.tv = tv;
     }
-    
-    public VeiculoUtilitarioPassageiro(){
-
-    }
-
+ 
     public int getCapacidadeCarga() {
         return capacidadeCarga;
     }

@@ -204,7 +204,13 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                    String modelo = JOptionPane.showInputDialog(null, "Qual o modelo do veiculo");
                                    String renavam = JOptionPane.showInputDialog(null, "Qual o renavam do veiculo");
                                    String categoria = JOptionPane.showInputDialog(null, "Qual a categoria do veiculo");
-                                   
+                                   String cor = JOptionPane.showInputDialog(null, "Qual a cor do veiculo");
+                                    int anoFabricacao = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o ano de fabricação"));
+                                    int anoModelo = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o ano do modelo"));
+                                    int capacidadeTanque = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual a capacidade do tanque"));
+                                    float valorDiariaCNPJ = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor da diaria para CNPJ"));
+                                    float valorDiariaCPF = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor da diaria para CPF"));
+
                                    confirma = JOptionPane.showConfirmDialog(null, "Possui ar-condicionado", "Ar-Condicionado", JOptionPane.YES_NO_OPTION);
                                    Boolean arCondicionado;
                                    if(confirma == JOptionPane.YES_OPTION){
@@ -229,7 +235,7 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                        cambioAutomatico=false;
                                    }
                                 
-                                VeiculoPasseio novoVeicPasseio = new VeiculoPasseio(marca, modelo, renavam, categoria, arCondicionado, direcaoHidraulica, cambioAutomatico);
+                                VeiculoPasseio novoVeicPasseio = new VeiculoPasseio(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, categoria, arCondicionado, direcaoHidraulica, cambioAutomatico);
                                 veicPasseio.add(novoVeicPasseio);
 
                                 JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
@@ -248,12 +254,18 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                     marca = JOptionPane.showInputDialog(null, "Qual a marca do veiculo");
                                     modelo = JOptionPane.showInputDialog(null, "Qual o modelo do veiculo");
                                     renavam = JOptionPane.showInputDialog(null, "Qual o renavam do veiculo");
+                                    cor = JOptionPane.showInputDialog(null, "Qual a cor do veiculo");
                                     int capacidadeCarga = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual a capacidade de carga"));
                                     int taraVeiculo = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual a tara do veiculo"));
                                     int tamanhoCompartimento = Integer.parseInt(JOptionPane.showInputDialog(null, "qual o tamanho do compartimento em metros"));
                                     String tipoCompartimento = JOptionPane.showInputDialog(null, "Qual o tipo de compartimento");
-                                    
-                                    VeiculoUtilitarioCarga newVeicCarga = new VeiculoUtilitarioCarga(marca, modelo, renavam, capacidadeCarga, taraVeiculo, tamanhoCompartimento, tipoCompartimento);
+                                    anoFabricacao = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o ano de fabricação"));
+                                    anoModelo = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o ano do modelo"));
+                                    capacidadeTanque = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual a capacidade do tanque"));
+                                    valorDiariaCNPJ = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor da diaria para CNPJ"));
+                                     valorDiariaCPF = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor da diaria para CPF"));
+
+                                    VeiculoUtilitarioCarga newVeicCarga = new VeiculoUtilitarioCarga(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, capacidadeCarga, taraVeiculo, tamanhoCompartimento, tipoCompartimento);
                                     veicCarga.add(newVeicCarga);
 
                                     JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
@@ -263,8 +275,14 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                     marca = JOptionPane.showInputDialog(null, "Qual a marca do veiculo");
                                     modelo = JOptionPane.showInputDialog(null, "Qual o modelo do veiculo");
                                     renavam = JOptionPane.showInputDialog(null, "Qual o renavam do veiculo");
+                                    cor = JOptionPane.showInputDialog(null, "Qual a cor do veiculo");
                                     capacidadeCarga = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual a capacidade de carga"));
-                                    
+                                    anoFabricacao = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o ano de fabricação"));
+                                    anoModelo = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o ano do modelo"));
+                                     capacidadeTanque = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual a capacidade do tanque"));
+                                    valorDiariaCNPJ = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor da diaria para CNPJ"));
+                                   valorDiariaCPF = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor da diaria para CPF"));
+
                                     confirma = JOptionPane.showConfirmDialog(null, "Possui ar-condicionado", "Ar-Condicionado", JOptionPane.YES_NO_OPTION);
                                     if(confirma == JOptionPane.YES_OPTION){
                                         arCondicionado = true;
@@ -286,7 +304,7 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                    }else{
                                        tv=false;
                                    }
-                                    VeiculoUtilitarioPassageiro newVeicPassageiro = new VeiculoUtilitarioPassageiro(marca, modelo, renavam, capacidadeCarga, arCondicionado, direcaoHidraulica, tv);
+                                    VeiculoUtilitarioPassageiro newVeicPassageiro = new VeiculoUtilitarioPassageiro(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, capacidadeCarga, arCondicionado, direcaoHidraulica, tv);
                                     veicPassageiro.add(newVeicPassageiro);
 
                                     JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
@@ -302,7 +320,13 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                 marca = JOptionPane.showInputDialog(null, "Qual a marca do veiculo");
                                 modelo = JOptionPane.showInputDialog(null, "Qual o modelo do veiculo");
                                 renavam = JOptionPane.showInputDialog(null, "Qual o renavam do veiculo");
-                                    
+                                cor = JOptionPane.showInputDialog(null, "Qual a cor do veiculo");
+                                anoFabricacao = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o ano de fabricação"));
+                                 anoModelo = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o ano do modelo"));
+                                 capacidadeTanque = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual a capacidade do tanque"));
+                                valorDiariaCNPJ = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor da diaria para CNPJ"));
+                                valorDiariaCPF = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor da diaria para CPF"));
+
                                 confirma = JOptionPane.showConfirmDialog(null, "Possui controle de tração", "Controle de Tração", JOptionPane.YES_NO_OPTION);
                                     Boolean controleTracao;
                                 if(confirma == JOptionPane.YES_OPTION){
@@ -329,7 +353,7 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
 
                                    String modoPilotagem = JOptionPane.showInputDialog(null, "Qual o modo de pilotagem");
 
-                                Motocicleta newMoto = new Motocicleta(marca, modelo, renavam, controleTracao, freiosABS, pilotoAutomatico, modoPilotagem);
+                                Motocicleta newMoto = new Motocicleta(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, controleTracao, freiosABS, pilotoAutomatico, modoPilotagem);
                                 motos.add(newMoto);
 
                                 JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
@@ -341,26 +365,91 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                         }
                     case 2:
                 
-                        str = "Menu de Pesquisa de Veículos\n\n" +
-                            "1 - Pesquisar Veículo pelo Renavan\n" +
-                            "2 - Pesquisar por Marca ou Modelo\n\n" +
-                            "Digite o número que indica a função que deseja";
+                        //Pesquisar Veiculo RENAVAM
+                        String busca = JOptionPane.showInputDialog(null, "Qual o renavam do veiculo");
+                        String resultadoBusca= " ";
 
-                        escolha = Integer.parseInt(JOptionPane.showInputDialog(null, str));
-                        
-                            switch (escolha) {
-                            case 1:
-                                //Pesquisar Veiculo RENAVAM
-                                return true;
+                        for(VeiculoPasseio a: veicPasseio){
+                            if(a.getRenavam().toLowerCase().contains(busca.toLowerCase())){
+                                resultadoBusca = "Renavam: "+ a.getRenavam() + 
+                                                "\nMarca: " + a.getMarca()+
+                                                "\nModelo: "+ a.getModelo()+
+                                                "\nCor: "+a.getCor()+
+                                                "\nCategoria: "+a.getCategoria()+
+                                                "\nAno de fabricação: "+a.getAnoFabricacao()+
+                                                "\nAno Modelo: "+a.getAnoModelo()+
+                                                "\nCapacidade do tanque: "+a.getCapacidadeTanque()+
+                                                "\nAr condicionado: "+a.getArCondicionado()+
+                                                "\nDireção Hidraulica: "+a.getDirecaoHidraulica()+
+                                                "\nCambio automatico: "+a.getCambioAutomatico()+
+                                                "\nValor Diaria p/ CNPJ: "+ a.getValorDiariaCNPJ()+
+                                                "\nValor diaria p/ CPF: "+a.getValorDiariaCPF();
+                            }else{
 
-                            case 2:
-                                //Pesquisar Veiculo Marca Modelo
-                                return true;
-                        
-                            default:
-                                JOptionPane.showMessageDialog(null, "Opção Inválida, Pressione OK para voltar ao menu"); 
-                                return true;
+                            }
                         }
+                        for(VeiculoUtilitarioCarga a: veicCarga){
+                            if(a.getRenavam().toLowerCase().contains(busca.toLowerCase())){
+                                resultadoBusca = "Renavam: "+ a.getRenavam() + 
+                                                "\nMarca: " + a.getMarca()+
+                                                "\nModelo: "+ a.getModelo()+
+                                                "\nCor: "+a.getCor()+
+                                                "\nAno de fabricação: "+a.getAnoFabricacao()+
+                                                "\nAno Modelo: "+a.getAnoModelo()+
+                                                "\nCapacidade do tanque: "+a.getCapacidadeTanque()+
+                                                "\nCapacidade de carga: "+a.getCapacidadeCarga()+
+                                                "\nTara do veiculo: "+a.getTaraVeiculo()+
+                                                "\nTipo de compartimento: "+a.getTipoCompartimento()+
+                                                "\nTamanho do compartimento: "+a.getTamanhoCompartimento()+
+                                                "\nValor Diaria p/ CNPJ: "+ a.getValorDiariaCNPJ()+
+                                                "\nValor diaria p/ CPF: "+a.getValorDiariaCPF();
+                            }else{
+
+                            }
+                        }
+                        for(VeiculoUtilitarioPassageiro a: veicPassageiro){
+                            if(a.getRenavam().toLowerCase().contains(busca.toLowerCase())){
+                                resultadoBusca = "Renavam: "+ a.getRenavam() + 
+                                                "\nMarca: " + a.getMarca()+
+                                                "\nModelo: "+ a.getModelo()+
+                                                "\nCor: "+a.getCor()+
+                                                "\nAno de fabricação: "+a.getAnoFabricacao()+
+                                                "\nAno Modelo: "+a.getAnoModelo()+
+                                                "\nCapacidade do tanque: "+a.getCapacidadeTanque()+
+                                                "\nCapacidade de carga: "+a.getCapacidadeCarga()+
+                                                "\nAr condicionado: "+a.getArCondicionado()+
+                                                "\nDireção Hidraulica: "+a.getDirecaoHidraulica()+
+                                                "\nTV: "+a.getTv()+
+                                                "\nValor Diaria p/ CNPJ: "+ a.getValorDiariaCNPJ()+
+                                                "\nValor diaria p/ CPF: "+a.getValorDiariaCPF();
+                            }else{
+
+                            }
+                        }
+                        for(Motocicleta a: motos){
+                            if(a.getRenavam().toLowerCase().contains(busca.toLowerCase())){
+                                resultadoBusca = "Renavam: "+ a.getRenavam() + 
+                                                "\nMarca: " + a.getMarca()+
+                                                "\nModelo: "+ a.getModelo()+
+                                                "\nCor: "+a.getCor()+
+                                                "\nAno de fabricação: "+a.getAnoFabricacao()+
+                                                "\nAno Modelo: "+a.getAnoModelo()+
+                                                "\nControle de tração: "+a.getControleTracao()+
+                                                "\nFeio ABS: "+a.getFreiosABS()+
+                                                "\nPiloto automatico: "+a.getPilotoAutomatico()+
+                                                "\nModo de pilotagem: "+a.getModoPilotagem()+
+                                                "\nValor Diaria p/ CNPJ: "+ a.getValorDiariaCNPJ()+
+                                                "\nValor diaria p/ CPF: "+a.getValorDiariaCPF();
+                                                
+                            }
+                        }
+
+                        if(resultadoBusca==" "){
+                            JOptionPane.showMessageDialog(null, "Veiculo não encontrado");
+                        }else{
+                            JOptionPane.showMessageDialog(null, resultadoBusca);
+                        }
+                               
                     case 3:
                         //Atualizar dados veiculo
                         return true;
