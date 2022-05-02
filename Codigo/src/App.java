@@ -10,20 +10,25 @@ import GerenciadorLocatarios.PessoaJuridica;
 public class App {
 public static void main(String[] args) throws Exception {
 
-    boolean voltaMenu = true;
+    boolean voltaMenu = true; 
     List<PessoaFisica> pessoaCPF = new LinkedList<PessoaFisica>();
     List<PessoaJuridica> pessoaCNPJ = new LinkedList<PessoaJuridica>();
     
-    do {
-        voltaMenu = menu(pessoaCPF, pessoaCNPJ);
+    do { //Função loop do Menu
+        voltaMenu = menu(pessoaCPF, pessoaCNPJ); //As listas são passadas ao menu
     } while (voltaMenu);    
 }
 
 static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNPJ) throws InterruptedException{
-    int escolha, confirma, tipoBusca;
-    String str, resultado;
-    Locatario buscado;
+    //Variaveis para as funções relacionadas ao menu
+    int escolha;
+    String str;
+    //Variaveis para as funções relacionadas a busca
+    int confirma, tipoBusca;
+    String resultado;
+    Locatario buscadoLoc;
     
+    //Menu Principal
     str = "Menu Principal\n\n" +
         "1 - Gerenciar Locatários\n" +
         "2 - Gerenciar Frota\n" +
@@ -34,7 +39,7 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
     escolha = Integer.parseInt(JOptionPane.showInputDialog(null, str));
         switch (escolha) {
             case 1:
-        
+                //Primeiro menu,gerencia de locatarios
                 str = "Menu de Gerencia de Locatários\n\n" +
                     "1 - Cadastrar Locatário\n" +
                     "2 - Buscar Locatário\n" +
@@ -45,87 +50,90 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
 
                 switch (escolha) {
                     case 1:
-                        //Cadastrar Locatário
+                    //Cadastrar Locatário
                         confirma = JOptionPane.showConfirmDialog(null, "O locatário é um CNPJ?", "Cadastro Locatário", JOptionPane.YES_NO_OPTION);
                         
-                        if(confirma == JOptionPane.YES_OPTION){                           
+                        if(confirma == JOptionPane.YES_OPTION){ //Cadastro de CNPJ com funcionario                     
                             if(cadastroCNPJ(pessoaCNPJ, pessoaCPF)){
-
                                 JOptionPane.showMessageDialog(null, "Cadastro de CNPJ feito com sucesso");
                             } else {
-
                                 JOptionPane.showMessageDialog(null,"Erro ao cadastrar CNPJ");
                             }
-                        } else {
-                            
+                        } else { //Cadastro de CPF
                             confirma = JOptionPane.showConfirmDialog(null, "O CPF está vinculado a um CNPJ?", "Cadastro Locatário", JOptionPane.YES_NO_OPTION);
-                            
-                            if(confirma == JOptionPane.YES_OPTION){
-                                
+                        
+                            if(confirma == JOptionPane.YES_OPTION){ //CPF está vinculado a um CNPJ
                                 String cnpj = JOptionPane.showInputDialog(null, "Informe o CNPJ ao qual este CPF está vinculado");
                                 
-                                for(PessoaJuridica t: pessoaCNPJ){
-                                    if(t.getCnpj().equalsIgnoreCase(cnpj)){
-
+                                for(PessoaJuridica t: pessoaCNPJ){ //Procura o CNPJ informado e cadastra o CPF como funcionario
+                                    if(t.getCnpj().equalsIgnoreCase(cnpj)){ 
                                         PessoaJuridica empresa = t;
                                         PessoaFisica funcionario = cadastroCPF(pessoaCPF);
                                         empresa.cadastrarFuncionario(funcionario);
                                     }
                                 }
-                            } else {
-                            
+                            } else { //Cadastro de CPF particular
                                 cadastroCPF(pessoaCPF);
                             }                        
                         }
                         return true;
 
                     case 2:
-                        //Buscar Locatário
+                    //Buscar Locatário
+                    //Tipo de busca que será feita, CPF ou CNPJ
                         tipoBusca = JOptionPane.showConfirmDialog(null, "Deseja buscar CPF?", "Busca Locatário", JOptionPane.YES_NO_OPTION);
-                        buscado = buscaLocatario(pessoaCPF, pessoaCNPJ, tipoBusca);
+                    //buscadoLoc é do tipo locatario para reaproveitar a função buscaLocatario em CPF e CNPJ
+                        buscadoLoc = buscaLocatario(pessoaCPF, pessoaCNPJ, tipoBusca);
 
-                        if(tipoBusca == JOptionPane.YES_OPTION){
-                            PessoaFisica buscadoCPF = (PessoaFisica) buscado;
-                            resultado = "Resultado:\n" + buscadoCPF.getNome() + "\n" + buscadoCPF.getEmail() + "\n" + buscadoCPF.getCpf() + "\n" + buscadoCPF.getEstadoCivil() +
-                                        "\n" + buscadoCPF.getCidade() + " " + buscadoCPF.getEstado() + "\n" + buscadoCPF.getEndereco() + " " +
-                                        buscadoCPF.getBairro() + "\n" + buscadoCPF.getCep() + "\n(" + buscadoCPF.getDddCelular() + ")" + buscadoCPF.getNumeroCelular() +
+                        if(tipoBusca == JOptionPane.YES_OPTION){ //Buscou um CPF
+                            PessoaFisica buscadoLocCPF = (PessoaFisica) buscadoLoc; //TypeCast de Locatario para CPF
+                        //Resultado da busca
+                        //Apresenta todos os dados relacionados ao objeto da busca
+                            resultado = "Resultado:\n" + buscadoLocCPF.getNome() + "\n" + buscadoLocCPF.getEmail() + "\n" + buscadoLocCPF.getCpf() + "\n" + buscadoLocCPF.getEstadoCivil() +
+                                        "\n" + buscadoLocCPF.getCidade() + " " + buscadoLocCPF.getEstado() + "\n" + buscadoLocCPF.getEndereco() + " " +
+                                        buscadoLocCPF.getBairro() + "\n" + buscadoLocCPF.getCep() + "\n(" + buscadoLocCPF.getDddCelular() + ")" + buscadoLocCPF.getNumeroCelular() +
                                         "\n\nDeseja atualizar os dados cadastrais? (em inputs vazios, serão considerados o dado atual)";
                             
                             int atualizar = JOptionPane.showConfirmDialog(null, resultado, "", JOptionPane.YES_NO_OPTION);
-                            if(atualizar == JOptionPane.YES_OPTION){
-                                atualizarCPF(buscadoCPF);
+                            if(atualizar == JOptionPane.YES_OPTION){ //Caso queira atualizar os dados
+                                atualizarCPF(buscadoLocCPF);
                             }
 
-                        } else {
-                            PessoaJuridica buscadoCNPJ = (PessoaJuridica) buscado;
-                            resultado = "Resultado:\n" + buscadoCNPJ.getNomeSocial() + "\n" + buscadoCNPJ.getEmail() + "\n" + buscadoCNPJ.getCnpj() + "\n" +
-                                        "\n" + buscadoCNPJ.getCidade() + " " + buscadoCNPJ.getEstado() + "\n" + buscadoCNPJ.getEndereco() + " " +
-                                        buscadoCNPJ.getBairro() + "\n" + buscadoCNPJ.getCep() + "\n(" + buscadoCNPJ.getDddCelular() + ")" + buscadoCNPJ.getNumeroCelular() +
+                        } else { //Buscou um CNPJ
+                            PessoaJuridica buscadoLocCNPJ = (PessoaJuridica) buscadoLoc; //TypeCast de Locatario para CNPJ
+                        //Resultado da busca
+                        //Apresenta todos os dados relacionados ao objeto da busca
+                            resultado = "Resultado:\n" + buscadoLocCNPJ.getNomeSocial() + "\n" + buscadoLocCNPJ.getEmail() + "\n" + buscadoLocCNPJ.getCnpj() + "\n" +
+                                        "\n" + buscadoLocCNPJ.getCidade() + " " + buscadoLocCNPJ.getEstado() + "\n" + buscadoLocCNPJ.getEndereco() + " " +
+                                        buscadoLocCNPJ.getBairro() + "\n" + buscadoLocCNPJ.getCep() + "\n(" + buscadoLocCNPJ.getDddCelular() + ")" + buscadoLocCNPJ.getNumeroCelular() +
                                         "\n\nDeseja atualizar os dados cadastrais? (em inputs vazios, serão considerados o dado atual)";
                             
                             int atualizar = JOptionPane.showConfirmDialog(null, resultado, "", JOptionPane.YES_NO_OPTION);
-                            if(atualizar == JOptionPane.YES_OPTION){
-                                atualizarCNPJ(buscadoCNPJ);
+                            if(atualizar == JOptionPane.YES_OPTION){ //Caso queira atualizar os dados
+                                atualizarCNPJ(buscadoLocCNPJ);
                             }
                         }
                         return true;
 
                     case 3:
-                        //Excluir Locatário
+                    //Excluir Locatário
+                    //Tipo de busca que será feita a exclusão, CPF ou CNPJ, essa parte é praticamente a mesma que em busca
                         tipoBusca = JOptionPane.showConfirmDialog(null, "Deseja buscar CPF?", "Busca Locatário", JOptionPane.YES_NO_OPTION);
-                        buscado = buscaLocatario(pessoaCPF, pessoaCNPJ, tipoBusca);
+                        buscadoLoc = buscaLocatario(pessoaCPF, pessoaCNPJ, tipoBusca);
 
-                        if(tipoBusca == JOptionPane.YES_OPTION){
-                            PessoaFisica buscadoCPF = (PessoaFisica) buscado;
-                            resultado = "Resultado:\n" + buscadoCPF.getNome() + "\n" + buscadoCPF.getEmail() + "\n" + buscadoCPF.getCpf() + "\n" + buscadoCPF.getEstadoCivil() +
-                                        "\n" + buscadoCPF.getCidade() + " " + buscadoCPF.getEstado() + "\n" + buscadoCPF.getEndereco() + " " +
-                                        buscadoCPF.getBairro() + "\n" + buscadoCPF.getCep() + "\n(" + buscadoCPF.getDddCelular() + ")" + buscadoCPF.getNumeroCelular() +
+                        if(tipoBusca == JOptionPane.YES_OPTION){ //Buscou um CPF
+                            PessoaFisica buscadoLocCPF = (PessoaFisica) buscadoLoc;
+                        //Resultado da busca
+                        //Apresenta todos os dados relacionados ao objeto da busca
+                            resultado = "Resultado:\n" + buscadoLocCPF.getNome() + "\n" + buscadoLocCPF.getEmail() + "\n" + buscadoLocCPF.getCpf() + "\n" + buscadoLocCPF.getEstadoCivil() +
+                                        "\n" + buscadoLocCPF.getCidade() + " " + buscadoLocCPF.getEstado() + "\n" + buscadoLocCPF.getEndereco() + " " +
+                                        buscadoLocCPF.getBairro() + "\n" + buscadoLocCPF.getCep() + "\n(" + buscadoLocCPF.getDddCelular() + ")" + buscadoLocCPF.getNumeroCelular() +
                                         "\n\nDeseja apagar o cadastro?";
                             
                             int excluir = JOptionPane.showConfirmDialog(null, resultado, "", JOptionPane.YES_NO_OPTION);
                             if(excluir == JOptionPane.YES_OPTION){
-                                    if(pessoaCPF.contains(buscadoCPF)){
-                                        if(pessoaCPF.remove(buscadoCPF)){
+                                    if(pessoaCPF.contains(buscadoLocCPF)){
+                                        if(pessoaCPF.remove(buscadoLocCPF)){ //Apagou um CPF
                                             JOptionPane.showMessageDialog(null, "CPF removido com sucesso");
                                         } else {
                                             JOptionPane.showMessageDialog(null, "Ocorreu um erro");
@@ -133,17 +141,19 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                     }
                             }
 
-                        } else {
-                            PessoaJuridica buscadoCNPJ = (PessoaJuridica) buscado;
-                            resultado = "Resultado:\n" + buscadoCNPJ.getNomeSocial() + "\n" + buscadoCNPJ.getEmail() + "\n" + buscadoCNPJ.getCnpj() + "\n" +
-                                        "\n" + buscadoCNPJ.getCidade() + " " + buscadoCNPJ.getEstado() + "\n" + buscadoCNPJ.getEndereco() + " " +
-                                        buscadoCNPJ.getBairro() + "\n" + buscadoCNPJ.getCep() + "\n(" + buscadoCNPJ.getDddCelular() + ")" + buscadoCNPJ.getNumeroCelular() +
+                        } else { //Buscou um CNPJ
+                            PessoaJuridica buscadoLocCNPJ = (PessoaJuridica) buscadoLoc;
+                        //Resultado da busca
+                        //Apresenta todos os dados relacionados ao objeto da busca
+                            resultado = "Resultado:\n" + buscadoLocCNPJ.getNomeSocial() + "\n" + buscadoLocCNPJ.getEmail() + "\n" + buscadoLocCNPJ.getCnpj() + "\n" +
+                                        "\n" + buscadoLocCNPJ.getCidade() + " " + buscadoLocCNPJ.getEstado() + "\n" + buscadoLocCNPJ.getEndereco() + " " +
+                                        buscadoLocCNPJ.getBairro() + "\n" + buscadoLocCNPJ.getCep() + "\n(" + buscadoLocCNPJ.getDddCelular() + ")" + buscadoLocCNPJ.getNumeroCelular() +
                                         "\n\nDeseja apagar o cadastro?";
                             
                             int excluir = JOptionPane.showConfirmDialog(null, resultado, "", JOptionPane.YES_NO_OPTION);
                             if(excluir == JOptionPane.YES_OPTION){
-                                if(pessoaCNPJ.contains(buscadoCNPJ)){
-                                    if(pessoaCNPJ.remove(buscadoCNPJ)){
+                                if(pessoaCNPJ.contains(buscadoLocCNPJ)){
+                                    if(pessoaCNPJ.remove(buscadoLocCNPJ)){ //Apagou um CNPJ
                                         JOptionPane.showMessageDialog(null, "CNPJ removido com sucesso");
                                     } else {
                                         JOptionPane.showMessageDialog(null, "Ocorreu um erro");
@@ -153,7 +163,7 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                         }
                         return true;
                 
-                    default:
+                    default: //Opção Inválida
                         JOptionPane.showMessageDialog(null, "Opção Inválida, Pressione OK para voltar ao menu"); 
                         return true;
                 }
@@ -270,6 +280,7 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
     }
 
     static PessoaFisica cadastroCPF(List<PessoaFisica> pessoaCPF){
+    //Atribuindo os valores informados à variáveis, a partir daqui que se faz o Exception
         String nome = JOptionPane.showInputDialog(null, "Informe o nome");
         String cpf = JOptionPane.showInputDialog(null, "Informe o CPF");
         String estadoCivil = JOptionPane.showInputDialog(null, "Informe o estado civil");
@@ -282,16 +293,18 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
         String ddd = JOptionPane.showInputDialog(null, "Informe o ddd");
         String tel = JOptionPane.showInputDialog(null, "Informe o número de telefone");
 
+    //Criando um objeto do tipo CPF com todos as variaveis recebidas
         PessoaFisica nvCPF = new PessoaFisica(end, bai, cid, est, cep, eml, ddd, tel, nome, cpf, estadoCivil);
-        if(pessoaCPF.add(nvCPF)){
+        if(pessoaCPF.add(nvCPF)){ //Caso o CPF foi adicionado a lista
             JOptionPane.showMessageDialog(null, "Cadastro CPF feito com sucesso");
         } else {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar CPF");
         }
-        return nvCPF;
+        return nvCPF; //Retorna uma referencia ao objeto recem criado
     }
 
     static boolean cadastroCNPJ(List<PessoaJuridica> pessoaCNPJ, List<PessoaFisica> pessoaCPF){
+    //Atribuindo os valores informados à variáveis, a partir daqui que se faz o Exception 
         String nomeSocial = JOptionPane.showInputDialog(null, "Informe o Nome Social");
         String cnpj = JOptionPane.showInputDialog(null, "Informe o CNPJ");
         String end = JOptionPane.showInputDialog(null, "Informe o endereço");
@@ -303,66 +316,82 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
         String ddd = JOptionPane.showInputDialog(null, "Informe o ddd");
         String tel = JOptionPane.showInputDialog(null, "Informe o número de telefone");
 
+    //Criando um objeto do tipo CNPJ com todos as variaveis recebidas
         PessoaJuridica nvCNPJ = new PessoaJuridica(end, bai, cid, est, cep, eml, ddd, tel, nomeSocial, cnpj);
+    //Informando a necessidade de criar um funcionario vinculado ao CNPJ
         JOptionPane.showMessageDialog(null, "É necessário cadastrar um funcionário para efetuar o aluguel");
+    //Chama a função cadastroCPF e o vincula ao CNPJ como funcionario
         PessoaFisica func = cadastroCPF(pessoaCPF);
         nvCNPJ.cadastrarFuncionario(func);
 
-        return pessoaCNPJ.add(nvCNPJ);
+        return pessoaCNPJ.add(nvCNPJ); //Retorna um boolean para caso o CNPJ tenha sido add
     }
 
     static Locatario buscaLocatario(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNPJ, int tipoBusca){
+    //Função de busca, utiliza as listas de objetos e que tipo de busca será feita, CPF ou CNPJ
+        String busca; //String com o conteudo da busca
+        String resultado = "Locatários encontrados:\n"; //String com a lista de resultados
+        int escolha; //Armazena qual objeto foi selecionado
 
-        String busca;
-        String resultado = "Locatários encontrados:\n";
-        int escolha;
-
-        PessoaFisica listaDeBuscaCPF[];
+    //Lista de resultados
+        PessoaFisica listaDeBuscaCPF[]; 
         PessoaJuridica listaDeBuscaCNPJ[];
         listaDeBuscaCPF = new PessoaFisica[50];
         listaDeBuscaCNPJ = new PessoaJuridica[50];
-        int i = 0;
+        int i = 0; //índice
         
-        if(tipoBusca == JOptionPane.YES_OPTION){
+        if(tipoBusca == JOptionPane.YES_OPTION){ //Caso a busca seja um CPF
             busca = JOptionPane.showInputDialog(null, "Digite o nome, email ou cpf do locatário a ser buscado");
+    //Percorre a lista e verifica se quais objetos possui Nome, Email ou CPF correspondente a 'busca' 
             for (PessoaFisica t: pessoaCPF){
                 if(t.getNome().toLowerCase().contains(busca.toLowerCase()) || t.getEmail().toLowerCase().contains(busca.toLowerCase()) || t.getCpf().toLowerCase().contains(busca.toLowerCase())){
                     listaDeBuscaCPF[i] = t;
                     i++;
-                    resultado += i + " - " + t.getNome() + "\n";
+                    resultado += i + " - " + t.getNome() + "\n"; //Acrescenta nomes à lista de resultado
                 }
             }
+        //Pergunta qual CPF deseja ser apresentado
             resultado += "\nIndique o número do locatário que deseja visualizar";
             escolha = Integer.parseInt(JOptionPane.showInputDialog(null, resultado));
 
-            return listaDeBuscaCPF[escolha -1];
+            return listaDeBuscaCPF[escolha -1]; //retorna o CPF escolhido
                         
-        } else {
+        } else { //Caso a busca seja um CNPJ
             busca = JOptionPane.showInputDialog(null, "Digite o nome social, email ou cnpj do locatário a ser buscado");
+    //Percorre a lista e verifica se quais objetos possui Nome Social, Email ou CNPJ correspondente a 'busca'
             for (PessoaJuridica t: pessoaCNPJ){
                 if(t.getNomeSocial().toLowerCase().contains(busca.toLowerCase()) || t.getEmail().toLowerCase().contains(busca.toLowerCase()) || t.getCnpj().toLowerCase().contains(busca.toLowerCase())){
                     listaDeBuscaCNPJ[i] = t;
                     i++;
-                    resultado += i + " - " + t.getNomeSocial() + "\n";
+                    resultado += i + " - " + t.getNomeSocial() + "\n"; //Acrescenta nomes à lista de resultado
                 }
             }
+        //Pergunta qual CNPJ deseja ser apresentado
             resultado += "\nIndique o número do locatário que deseja visualizar";
             escolha = Integer.parseInt(JOptionPane.showInputDialog(null, resultado));
 
-            return listaDeBuscaCNPJ[escolha -1];
+            return listaDeBuscaCNPJ[escolha -1]; //retorna o CNPJ escolhido
         }
 
     }
 
-    static boolean atualizarCPF(PessoaFisica cpf){
-        String a, b;
+    /*
+    A função de atualizar CPF e CNPJ funcionam da mesma maneira e para todos os atributos
+    para facilitar será explicado apenas o 'alterar nome' em CPF
+    basicamente para cada atributo será apresentado uma box para informar o novo dado,
+    se o input for vazio, será mantido o dado
+    */
 
-        a = "Altere o nome\n" + cpf.getNome();
-        b = JOptionPane.showInputDialog(null, a);
-        if(b.isEmpty()){
-            b = cpf.getNome();
+    static boolean atualizarCPF(PessoaFisica cpf){
+    //Strings 'a' para informar na caixa de texto e 'b' para a verificação e alteração do dado
+        String a, b; 
+
+        a = "Altere o nome\n" + cpf.getNome(); //String informa qual dado será alterado e qual o valor original
+        b = JOptionPane.showInputDialog(null, a); //Input para o novo valor
+        if(b.isEmpty()){ //Verifica se a String do input continua vazia
+            b = cpf.getNome(); //String pega o valor original
         }
-        cpf.setNome(b);
+        cpf.setNome(b); //Método set para o valor 'b' 
         a = "Altere o CPF\n" + cpf.getCpf();
         b = JOptionPane.showInputDialog(null, a);
         if(b.isEmpty()){
