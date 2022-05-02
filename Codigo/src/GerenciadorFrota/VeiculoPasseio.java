@@ -6,17 +6,13 @@ public class VeiculoPasseio extends Veiculo{
 
     protected boolean arCondicionado, direcaoHidraulica, cambioAutomatico;
 
-    public VeiculoPasseio(String marca, String modelo, String renavam,
+    public VeiculoPasseio(String marca, String modelo, String renavam, String cor, int anoFabricacao, int anoModelo, int capacidadeTanque, float valorDiariaCPF, float valorDiariaCNPJ,
      String categoria, boolean arCondicionado, boolean direcaoHidraulica, boolean cambioAutomatico){
-        super(marca, modelo, renavam);
+        super(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ);
         this. categoria = categoria;
         this.arCondicionado = arCondicionado;
         this.direcaoHidraulica = direcaoHidraulica;
         this.cambioAutomatico = cambioAutomatico;
-    }
-    
-    public VeiculoPasseio(){
-
     }
 
     public String getCategoria() {

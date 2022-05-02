@@ -2,21 +2,33 @@ package GerenciadorFrota;
 
 public class Veiculo {
 
-    protected String marca, modelo, cor, renavam;
+    protected String marca, modelo;
 
-    protected int anoFabricacao, anoModelo, capacidadeTanque;
+	protected String cor;
 
-    protected float valorDiariaCPF, valorDiariaCNPJ;
+	protected String renavam;
 
-    public Veiculo(String marca, String modelo, String renavam) {
+    protected int anoFabricacao;
+
+    protected int anoModelo;
+
+    protected int capacidadeTanque;
+
+    protected float valorDiariaCPF;
+
+	protected float valorDiariaCNPJ;
+
+    public Veiculo(String marca, String modelo, String renavam, String cor, int anoFabricacao, int anoModelo, int capacidadeTanque, float valorDiariaCPF, float valorDiariaCNPJ) {
         this.marca = marca;
         this.modelo = modelo;
         this.renavam = renavam;
+        this.anoFabricacao=anoFabricacao;
+        this.anoModelo=anoModelo;
+        this.capacidadeTanque=capacidadeTanque;
+        this.valorDiariaCNPJ=valorDiariaCNPJ;
+        this.valorDiariaCPF=valorDiariaCPF;
+        this.cor=cor;
         
-    }
-
-    public Veiculo(){
-
     }
 
     public String getMarca() {
