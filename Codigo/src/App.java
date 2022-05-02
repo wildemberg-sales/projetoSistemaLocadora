@@ -6,20 +6,28 @@ import javax.swing.JOptionPane;
 import GerenciadorLocatarios.Locatario;
 import GerenciadorLocatarios.PessoaFisica;
 import GerenciadorLocatarios.PessoaJuridica;
+import GerenciadorFrota.Motocicleta;
+import GerenciadorFrota.VeiculoPasseio;
+import GerenciadorFrota.VeiculoUtilitarioCarga;
+import GerenciadorFrota.VeiculoUtilitarioPassageiro;
 
 public class App {
 public static void main(String[] args) throws Exception {
 
     boolean voltaMenu = true;
+    List<Motocicleta> motos = new LinkedList<Motocicleta>();
+    List<VeiculoPasseio> veicPasseio = new LinkedList<VeiculoPasseio>();
+    List<VeiculoUtilitarioCarga> veicCarga = new LinkedList<VeiculoUtilitarioCarga>();
+    List<VeiculoUtilitarioPassageiro> veicPassageiro = new LinkedList<VeiculoUtilitarioPassageiro>();
     List<PessoaFisica> pessoaCPF = new LinkedList<PessoaFisica>();
     List<PessoaJuridica> pessoaCNPJ = new LinkedList<PessoaJuridica>();
     
     do {
-        voltaMenu = menu(pessoaCPF, pessoaCNPJ);
+        voltaMenu = menu(pessoaCPF, pessoaCNPJ, motos, veicPasseio, veicCarga, veicPassageiro);
     } while (voltaMenu);    
 }
 
-static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNPJ) throws InterruptedException{
+static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNPJ,  List<Motocicleta> motos,  List<VeiculoPasseio> veicPasseio,  List<VeiculoUtilitarioCarga> veicCarga,  List<VeiculoUtilitarioPassageiro> veicPassageiro) throws InterruptedException{
     int escolha, confirma, tipoBusca;
     String str, resultado;
     Locatario buscado;
@@ -182,6 +190,37 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                         switch (escolha) {
                             case 1:
                                 //Cadastro Veiculo Passeio
+                                   String marca = JOptionPane.showInputDialog(null, "Qual a marca do veiculo");
+                                   String modelo = JOptionPane.showInputDialog(null, "Qual o modelo do veiculo");
+                                   String renavam = JOptionPane.showInputDialog(null, "Qual o renavam do veiculo");
+                                   String categoria = JOptionPane.showInputDialog(null, "Qual a categoria do veiculo");
+                                   
+                                   confirma = JOptionPane.showConfirmDialog(null, "Possui ar-condicionado", "Ar-Condicionado", JOptionPane.YES_NO_OPTION);
+                                   Boolean arCondicionado;
+                                   if(confirma == JOptionPane.YES_OPTION){
+                                        arCondicionado = true;
+                                   }else{
+                                        arCondicionado = false;
+                                   }
+                                  
+                                   confirma = JOptionPane.showConfirmDialog(null, "Possui direção hidraulica", "Direção hidraulica", JOptionPane.YES_NO_OPTION);
+                                   Boolean direcaoHidraulica;
+                                   if(confirma==JOptionPane.YES_OPTION){
+                                       direcaoHidraulica = true;
+                                   }else{
+                                       direcaoHidraulica = false;
+                                   }
+                                
+                                   confirma = JOptionPane.showConfirmDialog(null, "Possui cambio automatico", "Cambio Automatico", JOptionPane.YES_NO_OPTION);
+                                   Boolean cambioAutomatico;
+                                   if(confirma==JOptionPane.YES_OPTION){
+                                       cambioAutomatico=true;
+                                   }else{
+                                       cambioAutomatico=false;
+                                   }
+                                
+                                VeiculoPasseio novoVeicPasseio = new VeiculoPasseio(marca, modelo, renavam, categoria, arCondicionado, direcaoHidraulica, cambioAutomatico);
+                                veicPasseio.add(novoVeicPasseio);
                                 return true;
 
                             case 2:
@@ -269,6 +308,8 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
         }
     }
 
+
+
     static PessoaFisica cadastroCPF(List<PessoaFisica> pessoaCPF){
         String nome = JOptionPane.showInputDialog(null, "Informe o nome");
         String cpf = JOptionPane.showInputDialog(null, "Informe o CPF");
@@ -283,6 +324,7 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
         String tel = JOptionPane.showInputDialog(null, "Informe o número de telefone");
 
         PessoaFisica nvCPF = new PessoaFisica(end, bai, cid, est, cep, eml, ddd, tel, nome, cpf, estadoCivil);
+
         if(pessoaCPF.add(nvCPF)){
             JOptionPane.showMessageDialog(null, "Cadastro CPF feito com sucesso");
         } else {
@@ -495,5 +537,6 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
         JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso");
         return true;
     }
+
 
 }
