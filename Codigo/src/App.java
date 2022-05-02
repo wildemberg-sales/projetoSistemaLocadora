@@ -235,10 +235,93 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
 
                             case 2:
                                 //Cadastro Veiculo utilitario
+                                str= "Cadastro de veiculo ultilitario\n\n"+
+                                    "1 - Cadastrar veiculo de Carga\n"+
+                                    "2 - Cadastrar veiculo de passageiros\n\n"+
+                                    "Digite o número que indica a função que deseja";
+                                escolha = Integer.parseInt(JOptionPane.showInputDialog(null, str));
+
+                                switch(escolha){
+                                    case 1:
+                                    marca = JOptionPane.showInputDialog(null, "Qual a marca do veiculo");
+                                    modelo = JOptionPane.showInputDialog(null, "Qual o modelo do veiculo");
+                                    renavam = JOptionPane.showInputDialog(null, "Qual o renavam do veiculo");
+                                    int capacidadeCarga = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual a capacidade de carga"));
+                                    int taraVeiculo = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual a tara do veiculo"));
+                                    int tamanhoCompartimento = Integer.parseInt(JOptionPane.showInputDialog(null, "qual o tamanho do compartimento em metros"));
+                                    String tipoCompartimento = JOptionPane.showInputDialog(null, "Qual o tipo de compartimento");
+                                    VeiculoUtilitarioCarga newVeicCarga = new VeiculoUtilitarioCarga(marca, modelo, renavam, capacidadeCarga, taraVeiculo, tamanhoCompartimento, tipoCompartimento);
+                                    veicCarga.add(newVeicCarga);
+                                    return true;
+
+                                    case 2:
+                                    marca = JOptionPane.showInputDialog(null, "Qual a marca do veiculo");
+                                    modelo = JOptionPane.showInputDialog(null, "Qual o modelo do veiculo");
+                                    renavam = JOptionPane.showInputDialog(null, "Qual o renavam do veiculo");
+                                    capacidadeCarga = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual a capacidade de carga"));
+                                    
+                                    confirma = JOptionPane.showConfirmDialog(null, "Possui ar-condicionado", "Ar-Condicionado", JOptionPane.YES_NO_OPTION);
+                                    if(confirma == JOptionPane.YES_OPTION){
+                                        arCondicionado = true;
+                                   }else{
+                                        arCondicionado = false;
+                                   }
+                                  
+                                   confirma = JOptionPane.showConfirmDialog(null, "Possui direção hidraulica", "Direção hidraulica", JOptionPane.YES_NO_OPTION);
+                                   if(confirma==JOptionPane.YES_OPTION){
+                                       direcaoHidraulica = true;
+                                   }else{
+                                       direcaoHidraulica = false;
+                                   }
+                                
+                                   confirma = JOptionPane.showConfirmDialog(null, "Possui TV", "TV", JOptionPane.YES_NO_OPTION);
+                                   Boolean tv;
+                                   if(confirma==JOptionPane.YES_OPTION){
+                                       tv=true;
+                                   }else{
+                                       tv=false;
+                                   }
+                                    VeiculoUtilitarioPassageiro newVeicPassageiro = new VeiculoUtilitarioPassageiro(marca, modelo, renavam, capacidadeCarga, arCondicionado, direcaoHidraulica, tv);
+                                    veicPassageiro.add(newVeicPassageiro);
+                                    return true;
+                                }
+
                                 return true;
 
                             case 3:
                                 //Cadastro Motocicleta
+                                marca = JOptionPane.showInputDialog(null, "Qual a marca do veiculo");
+                                modelo = JOptionPane.showInputDialog(null, "Qual o modelo do veiculo");
+                                renavam = JOptionPane.showInputDialog(null, "Qual o renavam do veiculo");
+                                    
+                                confirma = JOptionPane.showConfirmDialog(null, "Possui controle de tração", "Controle de Tração", JOptionPane.YES_NO_OPTION);
+                                    Boolean controleTracao;
+                                if(confirma == JOptionPane.YES_OPTION){
+                                        controleTracao = true;
+                                   }else{
+                                        controleTracao = false;
+                                   }
+                                  
+                                   confirma = JOptionPane.showConfirmDialog(null, "Possui Freio ABS", "Freio", JOptionPane.YES_NO_OPTION);
+                                   Boolean freiosABS;
+                                   if(confirma==JOptionPane.YES_OPTION){
+                                       freiosABS = true;
+                                   }else{
+                                       freiosABS = false;
+                                   }
+                                
+                                   confirma = JOptionPane.showConfirmDialog(null, "Possui piloto automatico", "Piloto automatico", JOptionPane.YES_NO_OPTION);
+                                   Boolean pilotoAutomatico;
+                                   if(confirma==JOptionPane.YES_OPTION){
+                                       pilotoAutomatico=true;
+                                   }else{
+                                       pilotoAutomatico=false;
+                                   }
+
+                                   String modoPilotagem = JOptionPane.showInputDialog(null, "Qual o modo de pilotagem");
+
+                                Motocicleta newMoto = new Motocicleta(marca, modelo, renavam, controleTracao, freiosABS, pilotoAutomatico, modoPilotagem);
+                                motos.add(newMoto);
                                 return true;
                         
                             default:
