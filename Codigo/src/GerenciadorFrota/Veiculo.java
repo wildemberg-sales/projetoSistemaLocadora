@@ -2,13 +2,13 @@ package GerenciadorFrota;
 
 public class Veiculo {
 
-    protected String marca, modelo, cor;
+    protected String marca, modelo, cor, renavam;
 
-    protected int anoFabricacao, anoModelo, renavam, capacidadeTanque;
+    protected int anoFabricacao, anoModelo, capacidadeTanque;
 
     protected float valorDiariaCPF, valorDiariaCNPJ;
 
-    public Veiculo(String marca, String modelo, int renavam) {
+    public Veiculo(String marca, String modelo, String renavam) {
         this.marca = marca;
         this.modelo = modelo;
         this.renavam = renavam;
@@ -59,11 +59,11 @@ public class Veiculo {
         this.anoModelo = anoModelo;
     }
 
-    public int getRenavam() {
+    public String getRenavam() {
         return renavam;
     }
 
-    public void setRenavam(int renavam) {
+    public void setRenavam(String renavam) {
         this.renavam = renavam;
     }
 

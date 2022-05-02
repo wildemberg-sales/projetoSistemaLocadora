@@ -6,7 +6,7 @@ public class Motocicleta extends Veiculo {
 
     protected String modoPilotagem;
 
-    public Motocicleta(String marca, String modelo, int renavam,
+    public Motocicleta(String marca, String modelo, String renavam,
      boolean controleTracao, boolean freiosABS, boolean pilotoAutomatico, String modoPilotagem){
         super(marca, modelo, renavam);
         this.controleTracao = controleTracao;

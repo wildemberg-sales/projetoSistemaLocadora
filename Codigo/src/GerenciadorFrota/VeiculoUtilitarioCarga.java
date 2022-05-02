@@ -6,7 +6,7 @@ public class VeiculoUtilitarioCarga extends Veiculo {
 
     protected String tipoCompartimento;
 
-    public VeiculoUtilitarioCarga(String marca, String modelo, int renavam,
+    public VeiculoUtilitarioCarga(String marca, String modelo, String renavam,
      int capacidadeCarga, int taraVeiculo, int tamanhoCompartimento, String tipoCompartimento){
         super(marca, modelo, renavam);
         this.capacidadeCarga = capacidadeCarga;

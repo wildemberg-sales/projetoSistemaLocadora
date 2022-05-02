@@ -6,7 +6,7 @@ public class VeiculoPasseio extends Veiculo{
 
     protected boolean arCondicionado, direcaoHidraulica, cambioAutomatico;
 
-    public VeiculoPasseio(String marca, String modelo, int renavam,
+    public VeiculoPasseio(String marca, String modelo, String renavam,
      String categoria, boolean arCondicionado, boolean direcaoHidraulica, boolean cambioAutomatico){
         super(marca, modelo, renavam);
         this. categoria = categoria;
