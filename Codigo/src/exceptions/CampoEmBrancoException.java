@@ -1,4 +1,5 @@
-package GerenciadorFrota;
+package exceptions;
+
 
 public class CampoEmBrancoException extends RuntimeException {
 

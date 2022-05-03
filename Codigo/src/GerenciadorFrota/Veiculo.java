@@ -1,5 +1,7 @@
 package GerenciadorFrota;
 
+import exceptions.CampoEmBrancoException;
+
 public class Veiculo {
 
     protected String marca, modelo;
@@ -18,7 +20,11 @@ public class Veiculo {
 
 	protected float valorDiariaCNPJ;
 
-    public Veiculo(String marca, String modelo, String renavam, String cor, int anoFabricacao, int anoModelo, int capacidadeTanque, float valorDiariaCPF, float valorDiariaCNPJ) {
+    public Veiculo(String marca, String modelo, String renavam, String cor, int anoFabricacao, int anoModelo, int capacidadeTanque, float valorDiariaCPF, float valorDiariaCNPJ) throws CampoEmBrancoException {
+        
+        if(marca.isEmpty() || modelo.isEmpty() || renavam.isEmpty()){
+            throw new CampoEmBrancoException("Marca, Modelo e Renavam precisam ser informados para o cadastro!");
+        }else{
         this.marca = marca;
         this.modelo = modelo;
         this.renavam = renavam;
@@ -28,7 +34,7 @@ public class Veiculo {
         this.valorDiariaCNPJ=valorDiariaCNPJ;
         this.valorDiariaCPF=valorDiariaCPF;
         this.cor=cor;
-        
+        }
     }
 
     public String getMarca() {

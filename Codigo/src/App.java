@@ -7,6 +7,7 @@ import GerenciadorLocatarios.Locatario;
 import GerenciadorLocatarios.PessoaFisica;
 import GerenciadorLocatarios.PessoaJuridica;
 import GerenciadorReserva.Reserva;
+import exceptions.CampoEmBrancoException;
 import GerenciadorFrota.Motocicleta;
 import GerenciadorFrota.Veiculo;
 import GerenciadorFrota.VeiculoPasseio;
@@ -237,11 +238,16 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                    }else{
                                        cambioAutomatico=false;
                                    }
+                                try{
+                                     VeiculoPasseio novoVeicPasseio = new VeiculoPasseio(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, categoria, arCondicionado, direcaoHidraulica, cambioAutomatico);
+                                    veicPasseio.add(novoVeicPasseio);
+                                     JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                                }catch(CampoEmBrancoException e){
+                                    JOptionPane.showMessageDialog(null, e.getMessage());
+                                }
                                 
-                                VeiculoPasseio novoVeicPasseio = new VeiculoPasseio(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, categoria, arCondicionado, direcaoHidraulica, cambioAutomatico);
-                                veicPasseio.add(novoVeicPasseio);
 
-                                JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                               
                                 return true;
 
                             case 2:
@@ -270,10 +276,15 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                     valorDiariaCNPJ = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor da diaria para CNPJ"));
                                      valorDiariaCPF = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor da diaria para CPF"));
 
-                                    VeiculoUtilitarioCarga newVeicCarga = new VeiculoUtilitarioCarga(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, capacidadeCarga, taraVeiculo, tamanhoCompartimento, tipoCompartimento);
-                                    veicCarga.add(newVeicCarga);
+                                     try{
+                                        VeiculoUtilitarioCarga newVeicCarga = new VeiculoUtilitarioCarga(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, capacidadeCarga, taraVeiculo, tamanhoCompartimento, tipoCompartimento);
+                                        veicCarga.add(newVeicCarga);
 
-                                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                                        JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                                        
+                                    }catch(CampoEmBrancoException e){
+                                        JOptionPane.showMessageDialog(null, e.getMessage());
+                                    }
                                     return true;
 
                                     case 2:
@@ -311,10 +322,16 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                    }else{
                                        tv=false;
                                    }
+
+                                   try{
                                     VeiculoUtilitarioPassageiro newVeicPassageiro = new VeiculoUtilitarioPassageiro(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, capacidadeCarga, arCondicionado, direcaoHidraulica, tv);
                                     veicPassageiro.add(newVeicPassageiro);
 
                                     JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                                    
+                                    }catch(CampoEmBrancoException e){
+                                        JOptionPane.showMessageDialog(null, e.getMessage());
+                                    }
                                     return true;
 
                                     default:
@@ -360,10 +377,15 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
 
                                    String modoPilotagem = JOptionPane.showInputDialog(null, "Qual o modo de pilotagem");
 
-                                Motocicleta newMoto = new Motocicleta(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, controleTracao, freiosABS, pilotoAutomatico, modoPilotagem);
-                                motos.add(newMoto);
+                                   try{
+                                    Motocicleta newMoto = new Motocicleta(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, controleTracao, freiosABS, pilotoAutomatico, modoPilotagem);
+                                    motos.add(newMoto);
 
-                                JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                                    
+                                    }catch(CampoEmBrancoException e){
+                                        JOptionPane.showMessageDialog(null, e.getMessage());
+                                    }
                                 return true;
                         
                             default:
