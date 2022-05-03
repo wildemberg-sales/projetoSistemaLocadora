@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import GerenciadorLocatarios.Locatario;
 import GerenciadorLocatarios.PessoaFisica;
 import GerenciadorLocatarios.PessoaJuridica;
+import GerenciadorFrota.CampoEmBrancoException;
 import GerenciadorFrota.Motocicleta;
 import GerenciadorFrota.VeiculoPasseio;
 import GerenciadorFrota.VeiculoUtilitarioCarga;
@@ -234,11 +235,14 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                    }else{
                                        cambioAutomatico=false;
                                    }
-                                
-                                VeiculoPasseio novoVeicPasseio = new VeiculoPasseio(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, categoria, arCondicionado, direcaoHidraulica, cambioAutomatico);
-                                veicPasseio.add(novoVeicPasseio);
-
-                                JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                                try{
+                                    VeiculoPasseio novoVeicPasseio = new VeiculoPasseio(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, categoria, arCondicionado, direcaoHidraulica, cambioAutomatico);
+                                    veicPasseio.add(novoVeicPasseio);
+                                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                                }catch(CampoEmBrancoException e){
+                                    JOptionPane.showMessageDialog(null, e.getMessage());
+                                }
+                            
                                 return true;
 
                             case 2:
@@ -267,9 +271,9 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                                     valorDiariaCNPJ = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor da diaria para CNPJ"));
                                      valorDiariaCPF = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor da diaria para CPF"));
 
+                                    
                                     VeiculoUtilitarioCarga newVeicCarga = new VeiculoUtilitarioCarga(marca, modelo, renavam, cor, anoFabricacao, anoModelo, capacidadeTanque, valorDiariaCPF, valorDiariaCNPJ, capacidadeCarga, taraVeiculo, tamanhoCompartimento, tipoCompartimento);
                                     veicCarga.add(newVeicCarga);
-
                                     JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
                                     return true;
 
