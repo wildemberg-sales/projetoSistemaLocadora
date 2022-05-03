@@ -37,13 +37,8 @@ public class Reserva{
         this.locatario = locatario;
         this.veiculo = veiculo;
         this.tipoLocatario = tipoLocatario;
-        if(tipoLocatario == JOptionPane.YES_OPTION){
-            this.responsavelLoc = responsavelLoc;
-        } else {
-            PessoaFisica self = (PessoaFisica) locatario;
-            this.responsavelLoc = self;
-        }
-
+        this.responsavelLoc = responsavelLoc;
+        calcularValor();
     }
 
     public String getDataInicio() {
@@ -126,6 +121,14 @@ public class Reserva{
         this.seguroObrigatorio = seguroObrigatorio;
     }
 
+    public float getValorSeguroVeiculo() {
+        return valorSeguroVeiculo;
+    }
+
+    public void setValorSeguroVeiculo(float valorSeguroVeiculo) {
+        this.valorSeguroVeiculo = valorSeguroVeiculo;
+    }
+
     public float getImposto() {
         return imposto;
     }
@@ -140,6 +143,10 @@ public class Reserva{
 
     public void setSeguroVeiculo(boolean seguroVeiculo) {
         this.seguroVeiculo = seguroVeiculo;
+    }
+
+    public Veiculo getVeiculo() {
+        return veiculo;
     }
 
     public float calcularValor(){

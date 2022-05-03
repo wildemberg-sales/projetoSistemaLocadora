@@ -6,7 +6,9 @@ import javax.swing.JOptionPane;
 import GerenciadorLocatarios.Locatario;
 import GerenciadorLocatarios.PessoaFisica;
 import GerenciadorLocatarios.PessoaJuridica;
+import GerenciadorReserva.Reserva;
 import GerenciadorFrota.Motocicleta;
+import GerenciadorFrota.Veiculo;
 import GerenciadorFrota.VeiculoPasseio;
 import GerenciadorFrota.VeiculoUtilitarioCarga;
 import GerenciadorFrota.VeiculoUtilitarioPassageiro;
@@ -21,15 +23,16 @@ public static void main(String[] args) throws Exception {
     List<VeiculoUtilitarioPassageiro> veicPassageiro = new LinkedList<VeiculoUtilitarioPassageiro>();
     List<PessoaFisica> pessoaCPF = new LinkedList<PessoaFisica>();
     List<PessoaJuridica> pessoaCNPJ = new LinkedList<PessoaJuridica>();
+    List<Reserva> reservas = new LinkedList<Reserva>();
     
     do { //Função loop do Menu
-        voltaMenu = menu(pessoaCPF, pessoaCNPJ, motos, veicPasseio, veicCarga, veicPassageiro);
+        voltaMenu = menu(pessoaCPF, pessoaCNPJ, motos, veicPasseio, veicCarga, veicPassageiro, reservas);
     } while (voltaMenu);    
 }
 
-static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNPJ,  List<Motocicleta> motos,  List<VeiculoPasseio> veicPasseio,  List<VeiculoUtilitarioCarga> veicCarga,  List<VeiculoUtilitarioPassageiro> veicPassageiro) throws InterruptedException{
+static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNPJ,  List<Motocicleta> motos,  List<VeiculoPasseio> veicPasseio,  List<VeiculoUtilitarioCarga> veicCarga,  List<VeiculoUtilitarioPassageiro> veicPassageiro, List<Reserva> reservas) throws InterruptedException{
     //Variaveis para as funções relacionadas ao menu
-    int escolha;
+    int escolha, numeroReserva = 0;
     String str;
     //Variaveis para as funções relacionadas a busca
     int confirma, tipoBusca;
@@ -849,14 +852,72 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                 switch (escolha) {
                     case 1:
                         //Realizar reserva
+                        
+                        int tipoLocatario = JOptionPane.showConfirmDialog(null, "O Locatário é um CNPJ?", "Reserva", JOptionPane.YES_NO_OPTION);
+                        Locatario loc = buscaLocatario(pessoaCPF, pessoaCNPJ, tipoLocatario);
+                        PessoaFisica responsavelLoc;
+                        
+                        if(tipoLocatario == JOptionPane.YES_OPTION){
+                            PessoaJuridica donoReserva = (PessoaJuridica) loc;
+                            responsavelLoc = donoReserva.escolherFuncionario();
+                        } else {
+                            PessoaFisica donoReserva = (PessoaFisica) loc;
+                            responsavelLoc = donoReserva;
+                        }
+
+                        Veiculo veiculo = buscaVeiculo(motos, veicPasseio, veicCarga, veicPassageiro);
+
+                        boolean seguroVeiculo;
+                        int horaInicio = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a hora inicial (apenas a hora)"));
+                        int minutoInicio = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe os minutos iniciais (apenas os minutos)"));
+                        String dataInicio = JOptionPane.showInputDialog(null, "Informe a data de inicio (aaaa-mm-dd)");
+                        int horaFim = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a hora final (apenas a hora)"));
+                        int minutoFim = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe os minutos finais (apenas os minutos)"));
+                        String dataFim = JOptionPane.showInputDialog(null, "Informe a data final (aaaa-mm-dd)");
+                        int seguro = JOptionPane.showConfirmDialog(null, "A reserva possui seguro próprio? (opcional)", "Seguro", JOptionPane.YES_NO_OPTION);
+                        if(seguro == JOptionPane.YES_OPTION){
+                            seguroVeiculo = true;
+                        } else {
+                            seguroVeiculo = false;
+                        }
+                        numeroReserva++;
+                        Reserva r = new Reserva(dataInicio, dataFim, numeroReserva, horaInicio, minutoInicio, horaFim, minutoFim, seguroVeiculo, tipoLocatario, loc, veiculo, responsavelLoc);
+                        if(reservas.add(r)){
+                            JOptionPane.showMessageDialog(null, "Reserva feita com sucesso");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Erro ao criar a reserva");
+                        }
+
                         return true;
 
                     case 2:
                         //Relatorio Reserva
+                        Reserva buscado = buscaReserva(reservas);
+                        if(buscado == null){
+                            JOptionPane.showMessageDialog(null, "Reserva não encontrada");
+                        } else {
+                            buscado.relatorioReserva();
+                        }
                         return true;
                     
                     case 3: 
                         //Relatorio Consolidado Reserva
+                        float vtimp = 0, vtsob = 0, vtsop = 0, vt = 0;
+                        String texto = "Relatório consolidado\n\n" + 
+                                     "Reserva            Data Inicio            Data Fim            Veiculo          Valor Seguro Terceiros      Valor Seguro Proprio    Valor Impostos       Valor Total\n";
+                        for(Reserva t: reservas){
+                            texto += "Nº " + t.getNumeroReserva() + " - " + t.getDataInicio() + " / " + t.getDataFim() +
+                                    " - " + t.getVeiculo().getMarca() + " " + t.getVeiculo().getModelo() + " - R$" + 
+                                    t.getSeguroObrigatorio() + " R$" + t.getImposto() + " R$" + t.getValorSeguroVeiculo() + " R$" + t.getValorTotal() + "\n";
+
+                            vtsob += t.getSeguroObrigatorio();
+                            vtimp += t.getImposto();
+                            vtsop += t.getValorSeguroVeiculo();
+                            vt += t.getValorTotal();
+                        }
+
+                        texto += "                                                                                  " + vtsob + "     " + vtimp + "    " + vtsop + "    " + vt;
+                        JOptionPane.showMessageDialog(null, texto);
                         return true;
 
                     default:
@@ -1120,6 +1181,97 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
 
         JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso");
         return true;
+    }
+
+    static Veiculo buscaVeiculo(List<Motocicleta> motos, List<VeiculoPasseio> veicPasseio,
+            List<VeiculoUtilitarioCarga> veicCarga, List<VeiculoUtilitarioPassageiro> veicPassageiro) {
+
+        String busca = JOptionPane.showInputDialog(null, "Qual o renavam do veiculo");
+        String resultado = "Veículos encontrados:\n";
+        int escolha;
+
+        Motocicleta m[];
+        VeiculoPasseio vp[];
+        VeiculoUtilitarioCarga vuc[];
+        VeiculoUtilitarioPassageiro vup[];
+        Veiculo t;
+
+        m = new Motocicleta[50];
+        vp = new VeiculoPasseio[50];
+        vuc = new VeiculoUtilitarioCarga[50];
+        vup = new VeiculoUtilitarioPassageiro[50];
+        int i = 0;
+        int valorMaxA = 0;
+        int valorMaxB = 0;
+        int valorMaxC = 0;
+        int valorMaxD = 0;
+
+        for (VeiculoPasseio a : veicPasseio) {
+            if (a.getRenavam().toLowerCase().contains(busca.toLowerCase())) {
+                vp[i] = a;
+                i++;
+                valorMaxA = i;
+                resultado += i + " - " + a.getRenavam() + "\n" + a.getMarca() + " " + a.getModelo();
+            }
+
+        }
+        for (VeiculoUtilitarioCarga b : veicCarga) {
+            if (b.getRenavam().toLowerCase().contains(busca.toLowerCase())) {
+                vuc[i] = b;
+                i++;
+                valorMaxB = i;
+                resultado += i + " - " + b.getRenavam() + "\n" + b.getMarca() + " " + b.getModelo();
+            }
+
+        }
+        for (VeiculoUtilitarioPassageiro c : veicPassageiro) {
+            if (c.getRenavam().toLowerCase().contains(busca.toLowerCase())) {
+                vup[i] = c;
+                i++;
+                valorMaxC = i;
+                resultado += i + " - " + c.getRenavam() + "\n" + c.getMarca() + " " + c.getModelo();
+            }
+
+        }
+        for (Motocicleta d : motos) {
+            if (d.getRenavam().toLowerCase().contains(busca.toLowerCase())) {
+                m[i] = d;
+                i++;
+                valorMaxD = i;
+                resultado += i + " - " + d.getRenavam() + "\n" + d.getMarca() + " " + d.getModelo();
+            }
+        }
+
+        resultado += "\nIndique o número do veículo que deseja visualizar";
+        escolha = Integer.parseInt(JOptionPane.showInputDialog(null, resultado));
+        if (escolha > 0 && escolha <= valorMaxA) {
+            t = (Veiculo) vp[escolha - 1];
+
+        } else if (escolha > valorMaxA && escolha <= valorMaxB) {
+            t = (Veiculo) vuc[escolha - 1];
+
+        } else if (escolha > valorMaxB && escolha <= valorMaxC) {
+            t = (Veiculo) vup[escolha - 1];
+
+        } else if (escolha > valorMaxC && escolha <= valorMaxD) {
+            t = (Veiculo) m[escolha - 1];
+
+        } else {
+            t = null;
+        }
+
+        return t;
+    }
+
+    static Reserva buscaReserva(List<Reserva> reservas){
+        Reserva resultado = null;
+        int busca = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o número da reserva?"));
+        for(Reserva r: reservas){
+            if(r.getNumeroReserva() == busca){
+                resultado = r;
+            }
+        }
+        return resultado;
     }
 
 
