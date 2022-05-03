@@ -18,21 +18,17 @@ public class Veiculo {
 
 	protected float valorDiariaCNPJ;
 
-    public Veiculo(String marca, String modelo, String renavam, String cor, int anoFabricacao, int anoModelo, int capacidadeTanque, float valorDiariaCPF, float valorDiariaCNPJ) throws CampoEmBrancoException{
+    public Veiculo(String marca, String modelo, String renavam, String cor, int anoFabricacao, int anoModelo, int capacidadeTanque, float valorDiariaCPF, float valorDiariaCNPJ) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.renavam = renavam;
+        this.anoFabricacao=anoFabricacao;
+        this.anoModelo=anoModelo;
+        this.capacidadeTanque=capacidadeTanque;
+        this.valorDiariaCNPJ=valorDiariaCNPJ;
+        this.valorDiariaCPF=valorDiariaCPF;
+        this.cor=cor;
         
-        if(marca.isEmpty() || modelo.isEmpty() || renavam.isEmpty()){
-            throw new CampoEmBrancoException("Marca, modelo e renavam precisam estar preenchidos para o cadastro ser realizado!\nClique em OK para voltar ao Menu");
-        }else{
-            this.marca = marca;
-            this.modelo = modelo;
-            this.renavam = renavam;
-            this.anoFabricacao=anoFabricacao;
-            this.anoModelo=anoModelo;
-            this.capacidadeTanque=capacidadeTanque;
-            this.valorDiariaCNPJ=valorDiariaCNPJ;
-            this.valorDiariaCPF=valorDiariaCPF;
-            this.cor=cor;
-        }
     }
 
     public String getMarca() {

@@ -3,6 +3,8 @@ package GerenciadorLocatarios;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class PessoaJuridica extends Locatario {
     
     protected String nomeSocial, cnpj;
@@ -44,5 +46,29 @@ public class PessoaJuridica extends Locatario {
         }
         return resultado;
     }
+
+    public PessoaFisica escolherFuncionario(){
+        
+        String resultado = "Locatários encontrados:\n";
+        int escolha;
+ 
+    
+        PessoaFisica listaDeBuscaCPF[]; 
+        listaDeBuscaCPF = new PessoaFisica[50];
+        int i = 0; 
+
+        for (PessoaFisica t: funcionarios){
+            listaDeBuscaCPF[i] = t;
+            i++;
+            resultado += i + " - " + t.getNome() + "\n";
+                 
+        }
+         
+        resultado += "\nIndique o número do funcionário que deseja escolher";
+        escolha = Integer.parseInt(JOptionPane.showInputDialog(null, resultado));
+ 
+        return listaDeBuscaCPF[escolha -1]; 
+    }
+    
     
 }
