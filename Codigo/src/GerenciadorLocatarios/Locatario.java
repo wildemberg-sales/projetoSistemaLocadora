@@ -1,5 +1,7 @@
 package GerenciadorLocatarios;
 
+import exceptions.CampoEmBrancoException;
+
 public class Locatario {
     
     protected String endereco,
@@ -12,7 +14,13 @@ public class Locatario {
                      dddCelular;
 
     public Locatario(String endereco, String bairro, String cidade, String estado, String cep, String email,
-            String dddCelular, String numeroCelular) {
+            String dddCelular, String numeroCelular) throws CampoEmBrancoException {
+        
+        if(email.isEmpty()){
+            throw new CampoEmBrancoException("Falta informações obrigatorias!");
+
+        }else{
+
         this.endereco = endereco;
         this.bairro = bairro;
         this.cidade = cidade;
@@ -21,6 +29,7 @@ public class Locatario {
         this.email = email;
         this.dddCelular = dddCelular;
         this.numeroCelular = numeroCelular;
+        }
     }
 
     public String getEndereco() {

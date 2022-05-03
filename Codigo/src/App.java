@@ -65,27 +65,42 @@ static boolean menu(List<PessoaFisica> pessoaCPF, List<PessoaJuridica> pessoaCNP
                     //Cadastrar Locatário
                         confirma = JOptionPane.showConfirmDialog(null, "O locatário é um CNPJ?", "Cadastro Locatário", JOptionPane.YES_NO_OPTION);
                         
-                        if(confirma == JOptionPane.YES_OPTION){ //Cadastro de CNPJ com funcionario                     
-                            if(cadastroCNPJ(pessoaCNPJ, pessoaCPF)){
+                        if(confirma == JOptionPane.YES_OPTION){ //Cadastro de CNPJ com funcionario  
+                            try{
+                                 if(cadastroCNPJ(pessoaCNPJ, pessoaCPF)){
                                 JOptionPane.showMessageDialog(null, "Cadastro de CNPJ feito com sucesso");
-                            } else {
-                                JOptionPane.showMessageDialog(null,"Erro ao cadastrar CNPJ");
-                            }
+                                } else {
+                                    JOptionPane.showMessageDialog(null,"Erro ao cadastrar CNPJ");
+                                }
+                            }catch(CampoEmBrancoException e) {
+                                JOptionPane.showMessageDialog(null, e.getMessage());
+                            }                 
+                           
                         } else { //Cadastro de CPF
                             confirma = JOptionPane.showConfirmDialog(null, "O CPF está vinculado a um CNPJ?", "Cadastro Locatário", JOptionPane.YES_NO_OPTION);
                         
                             if(confirma == JOptionPane.YES_OPTION){ //CPF está vinculado a um CNPJ
-                                String cnpj = JOptionPane.showInputDialog(null, "Informe o CNPJ ao qual este CPF está vinculado");
+                                try{
+                                   String cnpj = JOptionPane.showInputDialog(null, "Informe o CNPJ ao qual este CPF está vinculado");
                                 
-                                for(PessoaJuridica t: pessoaCNPJ){ //Procura o CNPJ informado e cadastra o CPF como funcionario
-                                    if(t.getCnpj().equalsIgnoreCase(cnpj)){ 
-                                        PessoaJuridica empresa = t;
-                                        PessoaFisica funcionario = cadastroCPF(pessoaCPF);
-                                        empresa.cadastrarFuncionario(funcionario);
-                                    }
+                                    for(PessoaJuridica t: pessoaCNPJ){ //Procura o CNPJ informado e cadastra o CPF como funcionario
+                                        if(t.getCnpj().equalsIgnoreCase(cnpj)){ 
+                                            PessoaJuridica empresa = t;
+                                            PessoaFisica funcionario = cadastroCPF(pessoaCPF);
+                                            empresa.cadastrarFuncionario(funcionario);
+                                        }
+                                    } 
+                                }catch(CampoEmBrancoException e){
+                                    JOptionPane.showMessageDialog(null, e.getMessage());
                                 }
+                                
                             } else { //Cadastro de CPF particular
-                                cadastroCPF(pessoaCPF);
+                                try{
+                                    cadastroCPF(pessoaCPF);
+                                }catch(CampoEmBrancoException e){
+                                    JOptionPane.showMessageDialog(null, e.getMessage());
+                                }
+                                
                             }                        
                         }
                         return true;

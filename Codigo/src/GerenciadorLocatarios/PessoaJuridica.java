@@ -1,5 +1,5 @@
 package GerenciadorLocatarios;
-
+import exceptions.CampoEmBrancoException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,11 +12,17 @@ public class PessoaJuridica extends Locatario {
     protected List<PessoaFisica> funcionarios;
 
     public PessoaJuridica(String endereco, String bairro, String cidade, String estado, String cep, String email,
-            String dddCelular, String numeroCelular, String nomeSocial, String cnpj) {
+            String dddCelular, String numeroCelular, String nomeSocial, String cnpj) throws CampoEmBrancoException {
         super(endereco, bairro, cidade, estado, cep, email, dddCelular, numeroCelular);
+
+        if(nomeSocial.isEmpty() || cnpj.isEmpty()){
+            throw new CampoEmBrancoException("Falta informações como cnpj ou nome social");
+        }else{
         this.nomeSocial = nomeSocial;
         this.cnpj = cnpj;
         this.funcionarios = new LinkedList<PessoaFisica>();
+        }
+        
     }
 
     public String getNomeSocial() {
